@@ -1,0 +1,127 @@
+/* ===== 主样式入口 ===== */
+@import './variables.css';
+@import './theme.css';
+@import './utilities.css';
+@import './animations.css';
+
+/* ===== 重置和基础样式 ===== */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+  font-family: var(--font-body);
+  background: var(--color-bg-page);
+  color: var(--color-text);
+  font-size: var(--text-base);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-family: inherit;
+}
+
+input, textarea, select {
+  font-family: inherit;
+}
+
+/* ===== 滚动条样式 ===== */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--gray-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-400);
+}
+
+/* ===== 选中文字样式 ===== */
+::selection {
+  background: rgba(0, 100, 255, 0.15);
+  color: var(--gray-900);
+}
+
+/* ===== 链接样式 ===== */
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color var(--transition-default);
+}
+
+a:hover {
+  color: var(--color-primary-dark);
+}
+
+/* ===== 页面过渡动画 ===== */
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.3s var(--ease-out);
+}
+
+.page-enter-from {
+  opacity: 0;
+  transform: translateY(12px);
+}
+
+.page-leave-to {
+  opacity: 0;
+  transform: translateY(-8px);
+}
+
+/* ===== 淡入淡出 ===== */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.2s var(--ease-default);
+}
+
+.fade-enter-from,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* ===== Responsive Breakpoints ===== */
+
+/* 中屏 (<=1440px) */
+@media (max-width: 1440px) {
+  .content-container {
+    padding: 0 16px;
+  }
+}
+
+/* 平板 (<=1024px) */
+@media (max-width: 1024px) {
+  .app-content {
+    padding: 16px 16px;
+  }
+
+  .content-container {
+    max-width: 100%;
+  }
+}
+
+/* 移动端 (<=768px) */
+@media (max-width: 768px) {
+  .app-content {
+    padding: 12px 12px;
+    min-height: calc(100vh - 56px - 36px);
+  }
+}

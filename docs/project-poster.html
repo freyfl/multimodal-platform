@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>多模态数据检索平台</title>
+<link href="fonts.css" rel="stylesheet">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{width:100%;height:100%;overflow:hidden}
+  body{
+    font-family:'Noto Sans SC',-apple-system,'PingFang SC',sans-serif;
+    background:#F8FAFC;
+    color:#1E293B;
+  }
+
+  .poster{
+    width:100%;height:100%;
+    display:grid;
+    grid-template-columns:1fr;
+    grid-template-rows:auto auto auto auto;
+    padding:3vh 4.5vw 2.5vh;
+    gap:0;
+    align-content:space-evenly;
+    position:relative;
+  }
+
+  /* 背景装饰线 */
+  .poster::before{
+    content:'';position:absolute;
+    top:0;left:3.8vw;right:3.8vw;bottom:0;
+    background:
+      linear-gradient(90deg,transparent 0,transparent calc(25% - 0.5px),#E2E8F0 calc(25%),transparent calc(25% + 0.5px),
+        transparent calc(50% - 0.5px),#E2E8F0 50%,transparent calc(50% + 0.5px),
+        transparent calc(75% - 0.5px),#E2E8F0 75%,transparent calc(75% + 0.5px),transparent 100%);
+    opacity:0.5;pointer-events:none;z-index:0;
+  }
+  .poster>*{position:relative;z-index:1}
+
+  /* ========= HEADER ========= */
+  .header{text-align:center;padding-bottom:0}
+  .header .eyebrow{
+    font-family:'Exo 2',sans-serif;
+    font-size:clamp(13px,1.2vw,18px);
+    font-weight:600;
+    letter-spacing:4px;
+    color:#0064FF;
+    text-transform:uppercase;
+    margin-bottom:0.8vh;
+  }
+  .header h1{
+    font-size:clamp(40px,4.8vw,72px);
+    font-weight:900;
+    letter-spacing:4px;
+    color:#0F172A;
+    line-height:1.15;
+  }
+  .header h1 em{
+    font-style:normal;
+    background:linear-gradient(135deg,#0064FF 0%,#3B82F6 60%,#06B6D4 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .header .tagline{
+    font-size:clamp(15px,1.3vw,20px);
+    color:#64748B;
+    margin-top:0.8vh;
+    font-weight:400;
+    letter-spacing:1px;
+  }
+
+  /* ========= PAIN POINTS ========= */
+  .pains{display:grid;grid-template-columns:repeat(3,1fr);gap:1.2vw}
+  .pain{
+    display:flex;align-items:center;gap:clamp(12px,1.2vw,20px);
+    padding:clamp(12px,1.4vh,20px) clamp(16px,1.4vw,26px);
+    background:#FFF;
+    border:1px solid #FEE2E2;
+    border-radius:12px;
+    box-shadow:0 1px 3px rgba(239,68,68,0.06);
+  }
+  .pain-icon{
+    width:clamp(36px,3vw,46px);height:clamp(36px,3vw,46px);
+    border-radius:10px;
+    background:linear-gradient(135deg,#FEF2F2,#FEE2E2);
+    display:flex;align-items:center;justify-content:center;
+    flex-shrink:0;
+  }
+  .pain-icon svg{width:50%;height:50%;stroke:#EF4444;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+  .pain h3{font-size:clamp(16px,1.2vw,20px);font-weight:700;color:#DC2626;margin-bottom:2px}
+  .pain p{font-size:clamp(13px,1vw,16px);color:#64748B;line-height:1.6}
+
+  /* ========= SECTION LABEL ========= */
+  .section-label{
+    display:flex;align-items:center;gap:10px;
+    margin-bottom:clamp(6px,1vh,12px);
+  }
+  .section-label::before,.section-label::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,transparent,#CBD5E1,transparent)}
+  .section-label span{
+    font-family:'Exo 2',sans-serif;
+    font-size:clamp(10px,0.75vw,13px);
+    font-weight:600;letter-spacing:3px;
+    color:#0064FF;text-transform:uppercase;white-space:nowrap;
+  }
+
+  /* ========= FEATURES ========= */
+  .features{display:flex;flex-direction:column}
+  .features-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.2vw}
+  .feat{
+    background:#FFF;
+    border:1px solid #E2E8F0;
+    border-radius:14px;
+    padding:clamp(18px,2.2vh,30px) clamp(18px,1.5vw,28px);
+    display:flex;flex-direction:column;
+    position:relative;overflow:hidden;
+    transition:box-shadow 0.25s,border-color 0.25s;
+  }
+  .feat:hover{border-color:#CBD5E1;box-shadow:0 4px 20px rgba(0,0,0,0.06)}
+
+  .feat .accent{
+    position:absolute;top:0;left:0;right:0;height:3px;
+  }
+  .feat:nth-child(1) .accent{background:linear-gradient(90deg,#0064FF,#3B82F6)}
+  .feat:nth-child(2) .accent{background:linear-gradient(90deg,#8B5CF6,#A78BFA)}
+  .feat:nth-child(3) .accent{background:linear-gradient(90deg,#06B6D4,#22D3EE)}
+  .feat:nth-child(4) .accent{background:linear-gradient(90deg,#10B981,#34D399)}
+
+  .feat-icon{
+    width:clamp(38px,3.2vw,48px);height:clamp(38px,3.2vw,48px);
+    border-radius:12px;
+    display:flex;align-items:center;justify-content:center;
+    margin-bottom:clamp(8px,1vh,14px);
+  }
+  .feat-icon svg{width:55%;height:55%;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+  .feat:nth-child(1) .feat-icon{background:#EFF6FF}
+  .feat:nth-child(1) .feat-icon svg{stroke:#0064FF}
+  .feat:nth-child(2) .feat-icon{background:#F5F3FF}
+  .feat:nth-child(2) .feat-icon svg{stroke:#8B5CF6}
+  .feat:nth-child(3) .feat-icon{background:#ECFEFF}
+  .feat:nth-child(3) .feat-icon svg{stroke:#06B6D4}
+  .feat:nth-child(4) .feat-icon{background:#ECFDF5}
+  .feat:nth-child(4) .feat-icon svg{stroke:#10B981}
+
+  .feat h3{
+    font-size:clamp(18px,1.5vw,26px);
+    font-weight:700;margin-bottom:clamp(4px,0.6vh,8px);
+  }
+  .feat:nth-child(1) h3{color:#0064FF}
+  .feat:nth-child(2) h3{color:#7C3AED}
+  .feat:nth-child(3) h3{color:#0891B2}
+  .feat:nth-child(4) h3{color:#059669}
+
+  .feat p{
+    font-size:clamp(14px,1.05vw,17px);
+    color:#64748B;line-height:1.7;flex:1;
+  }
+  .feat .chip{
+    display:inline-flex;align-items:center;gap:4px;
+    margin-top:clamp(8px,1vh,14px);
+    padding:4px 12px;
+    border-radius:6px;
+    font-family:'Exo 2',sans-serif;
+    font-size:clamp(11px,0.85vw,14px);
+    font-weight:600;
+    letter-spacing:0.5px;
+    width:fit-content;
+  }
+  .feat:nth-child(1) .chip{background:#EFF6FF;color:#0064FF}
+  .feat:nth-child(2) .chip{background:#F5F3FF;color:#7C3AED}
+  .feat:nth-child(3) .chip{background:#ECFEFF;color:#0891B2}
+  .feat:nth-child(4) .chip{background:#ECFDF5;color:#059669}
+
+  /* ========= BOTTOM BAR ========= */
+  .bottom{display:flex;gap:1vw;align-items:stretch}
+  .tech-bar{
+    flex:1;
+    display:flex;align-items:center;gap:clamp(10px,1.2vw,20px);
+    padding:clamp(10px,1.2vh,16px) clamp(14px,1.4vw,24px);
+    background:#FFF;border:1px solid #E2E8F0;border-radius:12px;
+  }
+  .tech-label{
+    font-family:'Exo 2',sans-serif;
+    font-size:clamp(10px,0.7vw,13px);font-weight:600;
+    color:#94A3B8;letter-spacing:2px;
+    text-transform:uppercase;white-space:nowrap;
+  }
+  .tech-chips{display:flex;gap:8px;flex-wrap:wrap}
+  .tech-chips span{
+    padding:5px 14px;
+    background:#EFF6FF;border:1px solid #DBEAFE;
+    border-radius:6px;
+    font-size:clamp(13px,0.95vw,16px);
+    font-weight:600;color:#1E40AF;
+    white-space:nowrap;
+  }
+
+  .metrics{display:flex;gap:6px}
+  .metric{
+    padding:clamp(8px,1vh,14px) clamp(16px,1.4vw,28px);
+    background:#FFF;border:1px solid #E2E8F0;border-radius:12px;
+    text-align:center;white-space:nowrap;
+  }
+  .metric strong{
+    display:block;
+    font-family:'Exo 2',sans-serif;
+    font-size:clamp(20px,1.9vw,32px);
+    font-weight:800;
+    background:linear-gradient(135deg,#0064FF,#3B82F6);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .metric small{font-size:clamp(11px,0.8vw,14px);color:#94A3B8;font-weight:500}
+</style>
+</head>
+<body>
+<div class="poster">
+
+  <!-- HEADER -->
+  <header class="header">
+    <p class="eyebrow">Volcengine · Multimodal AI</p>
+    <h1><em>多模态数据检索平台</em></h1>
+    <p class="tagline">火山 ECS / VPC · 本机 MySQL / Milvus · TOS · 方舟 Responses / Embeddings</p>
+    <p class="tagline">理解 doubao-seed-2-1-lite-260915 · 向量 doubao-embedding-vision-251215</p>
+    <p class="tagline">真实资源尚未提供，模型权限与完整链路待验证；部署与回退见 deploy/DEPLOYMENT.md</p>
+  </header>
+
+  <!-- PAIN POINTS -->
+  <section class="pains">
+    <div class="pain">
+      <div class="pain-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg>
+      </div>
+      <div>
+        <h3>数据挖掘难</h3>
+        <p>从海量多模态数据集中精确挖掘特定标签数据集，人工成本巨大</p>
+      </div>
+    </div>
+    <div class="pain">
+      <div class="pain-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      </div>
+      <div>
+        <h3>打标效率低</h3>
+        <p>传统方案投入大量人工与算力做数据标注，严重影响模型训练效率</p>
+      </div>
+    </div>
+    <div class="pain">
+      <div class="pain-icon">
+        <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>
+      </div>
+      <div>
+        <h3>方案难感知</h3>
+        <p>PPT 不足以展示 AI 方案核心优势，客户体感不强，决策周期长</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="features">
+    <div class="section-label"><span>Core Capabilities</span></div>
+    <div class="features-grid">
+    <div class="feat">
+      <div class="accent"></div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+      </div>
+      <h3>以图搜图</h3>
+      <p>上传道路图片，通过方舟多模态向量与 Milvus 检索相似场景，按相似度排序，效果以实测为准。</p>
+      <span class="chip">VISUAL VECTOR SEARCH</span>
+    </div>
+    <div class="feat">
+      <div class="accent"></div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="8" x2="14" y2="8" opacity="0.4"/><line x1="8" y1="11" x2="12" y2="11" opacity="0.4"/><line x1="8" y1="14" x2="14" y2="14" opacity="0.4"/></svg>
+      </div>
+      <h3>语义检索</h3>
+      <p>用自然语言描述目标，如"雨天路口有行人"，AI 理解语义直接返回匹配画面。</p>
+      <span class="chip">NATURAL LANGUAGE</span>
+    </div>
+    <div class="feat">
+      <div class="accent"></div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><path d="M20.59 13.41l-7.17 7.17a2 2 0 01-2.83 0L2 12V2h10l8.59 8.59a2 2 0 010 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
+      </div>
+      <h3>智能标签</h3>
+      <p>AI 自动识别车辆、行人、天气、道路等要素，生成多维标签，支持 AND/OR 组合筛选。</p>
+      <span class="chip">AI AUTO TAGGING</span>
+    </div>
+    <div class="feat">
+      <div class="accent"></div>
+      <div class="feat-icon">
+        <svg viewBox="0 0 24 24"><path d="M18 10h-1.26A8 8 0 109 20h9a5 5 0 000-10z"/></svg>
+      </div>
+      <h3>一键导入</h3>
+      <p>从私有 TOS 导入图片视频，经方舟向量化与标签生成，跟踪任务进度、失败及重试。</p>
+      <span class="chip">TOS IMPORT PIPELINE</span>
+    </div>
+    </div>
+  </section>
+
+  <!-- BOTTOM -->
+  <footer class="bottom">
+    <div class="tech-bar">
+      <span class="tech-label">Tech Stack</span>
+      <div class="tech-chips">
+        <span>ECS / VPC</span>
+        <span>火山方舟</span>
+        <span>TOS</span>
+        <span>本机 MySQL</span>
+        <span>Milvus</span>
+        <span>FastAPI</span>
+        <span>Vue 3</span>
+      </div>
+    </div>
+    <div class="metrics">
+      <div class="metric"><strong>1024</strong><small>显式向量维度</small></div>
+      <div class="metric"><strong>3 类</strong><small>检索入口</small></div>
+      <div class="metric"><strong>待验证</strong><small>真实云链路</small></div>
+    </div>
+  </footer>
+
+</div>
+</body>
+</html>

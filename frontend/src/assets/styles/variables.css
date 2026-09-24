@@ -1,0 +1,153 @@
+/* ===== 设计系统 CSS 变量 ===== */
+/* Ali Blue 专业浅色主题 */
+:root {
+  /* ── 字体 ── */
+  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+
+  /* ── 字号 ── */
+  --text-2xs: 10px;
+  --text-xs: 11px;
+  --text-sm: 12px;
+  --text-caption: 13px;
+  --text-base: 14px;
+  --text-md: 15px;
+  --text-lg: 16px;
+  --text-xl: 20px;
+  --text-2xl: 24px;
+  --text-3xl: 28px;
+
+  /* ── 主色 Ali Blue ── */
+  --color-primary: #0064ff;
+  --color-primary-light: #4080ff;
+  --color-primary-bg: #e8f0ff;
+  --color-primary-dark: #0052d9;
+  --color-primary-glow: rgba(0, 100, 255, 0.3);
+
+  /* ── Blue 色阶（兼容原参考） ── */
+  --blue-50: #eff6ff;
+  --blue-100: #dbeafe;
+  --blue-200: #bfdbfe;
+  --blue-400: #60a5fa;
+  --blue-500: #3b82f6;
+  --blue-600: #2563eb;
+  --blue-700: #1d4ed8;
+  --blue-800: #1e40af;
+  --blue-900: #1e3a8a;
+  --ali-blue: #0064ff;
+  --ali-blue-light: #e8f0ff;
+  --ali-blue-mid: #4080ff;
+
+  /* ── 功能色 ── */
+  --color-success: #10b981;
+  --color-success-light: #d1fae5;
+  --color-warning: #f97316;
+  --color-warning-light: #ffedd5;
+  --color-error: #ef4444;
+  --color-error-light: #fee2e2;
+  --color-info: #0064ff;
+  --color-purple: #8b5cf6;
+  --color-purple-light: #ede9fe;
+
+  /* ── 强调色（向后兼容） ── */
+  --color-accent: #4080ff;
+  --color-accent-light: #0064ff;
+  --color-accent-glow: rgba(0, 100, 255, 0.2);
+
+  /* ── 中性灰度 ── */
+  --gray-50: #f8fafc;
+  --gray-100: #f1f5f9;
+  --gray-200: #e2e8f0;
+  --gray-300: #cbd5e1;
+  --gray-400: #94a3b8;
+  --gray-500: #64748b;
+  --gray-600: #475569;
+  --gray-700: #334155;
+  --gray-800: #1e293b;
+  --gray-900: #0f172a;
+  --white: #ffffff;
+
+  /* ── 文字颜色 ── */
+  --color-text: var(--gray-800);
+  --color-text-bright: var(--gray-900);
+  --color-text-secondary: var(--gray-500);
+  --color-text-tertiary: var(--gray-400);
+  --color-text-muted: var(--gray-300);
+
+  /* ── 背景色 ── */
+  --color-bg-deep: var(--gray-50);
+  --color-bg-page: var(--gray-50);
+  --color-bg-elevated: var(--white);
+  --color-bg-glass: var(--white);
+  --color-bg-glass-strong: var(--gray-50);
+  --color-bg-glass-hover: var(--gray-100);
+  --color-bg-surface: var(--white);
+
+  /* ── 边框色 ── */
+  --color-border: var(--gray-200);
+  --color-border-hover: var(--gray-300);
+  --color-border-active: var(--color-primary);
+  --color-border-subtle: var(--gray-100);
+
+  /* ── 阴影（与设计稿对齐） ── */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.08), 0 10px 10px rgba(0, 0, 0, 0.04);
+  --shadow-2xl: var(--shadow-xl);
+
+  /* 向后兼容旧阴影名 */
+  --glass-shadow: var(--shadow);
+  --glass-shadow-hover: var(--shadow-md);
+  --glass-inset: none;
+  --glass-blur: 0px;
+  --glass-bg: var(--white);
+  --glow-primary: var(--shadow);
+  --glow-accent: var(--shadow);
+  --glow-success: 0 0 8px rgba(16, 185, 129, 0.2);
+  --glow-text: none;
+
+  /* ── 圆角 ── */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius: 8px;
+  --radius-md: 10px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-2xl: 20px;
+  --radius-pill: 999px;
+
+  /* ── 间距（4px 倍数递进） ── */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-2sm: 12px;
+  --spacing-md: 16px;
+  --spacing-2md: 20px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 40px;
+  --spacing-3xl: 48px;
+  --spacing-4xl: 64px;
+
+  /* ── 过渡 ── */
+  --duration-fast: 150ms;
+  --duration-normal: 200ms;
+  --duration-slow: 300ms;
+  --ease-default: ease;
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --transition-default: 0.15s ease;
+
+  /* ── 层级 ── */
+  --z-base: 1;
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-overlay: 50;
+  --z-modal: 100;
+
+  /* ── 布局 ── */
+  --sidebar-w: 220px;
+  --header-h: 56px;
+}
