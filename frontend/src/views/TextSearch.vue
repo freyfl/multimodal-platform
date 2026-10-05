@@ -16,13 +16,13 @@
       />
       <div v-if="!hasSearched" class="hot-searches">
         <span class="hot-label">快速示例：</span>
-        <span
+        <button
           v-for="(hot, index) in hotSearches"
           :key="hot"
           class="hot-tag stagger-item"
           :style="{ '--i': index }"
           @click="handleHotSearch(hot)"
-        >{{ hot }}</span>
+        >{{ hot }}</button>
       </div>
     </GlassCard>
 

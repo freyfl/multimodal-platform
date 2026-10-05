@@ -1,7 +1,7 @@
 <template>
   <aside class="sidebar">
     <!-- Brand Logo -->
-    <div class="sidebar-logo">
+    <router-link to="/dashboard" class="sidebar-logo" aria-label="多模态检索平台首页" @click="$emit('navigate')">
       <div class="logo-icon">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="16" height="16">
           <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -13,10 +13,10 @@
         <span class="logo-text">多模态检索平台</span>
         <span class="logo-sub">MULTIMODAL RETRIEVAL</span>
       </div>
-    </div>
+    </router-link>
 
     <!-- Navigation Groups -->
-    <nav class="sidebar-nav">
+    <nav class="sidebar-nav" aria-label="主要导航">
       <div v-for="group in navGroups" :key="group.label" class="nav-group">
         <div class="nav-group-label">{{ group.label }}</div>
         <router-link
@@ -25,14 +25,18 @@
           :to="item.path"
           class="nav-item"
           :class="{ active: isActive(item.path) }"
+          @click="$emit('navigate')"
         >
           <component :is="item.icon" class="nav-icon" />
           <span class="nav-label">{{ item.name }}</span>
         </router-link>
       </div>
     </nav>
-
-
+    <div class="sidebar-footer">
+      <span class="workspace-mark" aria-hidden="true">M<span> / </span>M</span>
+      <div>感知 · 理解 · 检索</div>
+      <span class="workspace-caption">MULTIMODAL WORKSPACE</span>
+    </div>
   </aside>
 </template>
 
@@ -50,6 +54,7 @@ import {
 } from '@ant-design/icons-vue'
 
 const route = useRoute()
+defineEmits<{ navigate: [] }>()
 
 const navGroups = [
   {
@@ -84,24 +89,23 @@ const isActive = computed(() => (path: string) => {
 
 <style scoped>
 .sidebar {
-  width: 220px;
-  min-width: 220px;
-  height: 100vh;
-  background: #ffffff;
-  border-right: 1px solid #e2e8f0;
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  height: 100%;
+  background: #172126;
+  border-right: 1px solid #293338;
   display: flex;
   flex-direction: column;
   flex-shrink: 0;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
   z-index: 10;
 }
 
 /* Brand Logo */
 .sidebar-logo {
-  height: 56px;
-  min-height: 56px;
-  padding: 0 20px;
-  border-bottom: 1px solid #e2e8f0;
+  height: 88px;
+  min-height: 88px;
+  padding: 0 24px;
+  border-bottom: 1px solid #303b40;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -111,14 +115,13 @@ const isActive = computed(() => (path: string) => {
 .logo-icon {
   width: 32px;
   height: 32px;
-  background: linear-gradient(135deg, #0064ff 0%, #4080ff 100%);
-  border-radius: 6px;
+  background: #c4eccf;
+  border-radius: 8px 2px 8px 2px;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #172126;
   flex-shrink: 0;
-  box-shadow: 0 2px 8px rgba(0, 100, 255, 0.3);
 }
 
 .logo-text-wrap {
@@ -130,14 +133,14 @@ const isActive = computed(() => (path: string) => {
 .logo-text {
   font-size: 13px;
   font-weight: 700;
-  color: #0f172a;
+  color: #f1f5f4;
   letter-spacing: -0.3px;
   line-height: 1.2;
 }
 
 .logo-sub {
   font-size: 10px;
-  color: #94a3b8;
+  color: #a0aeb4;
   font-weight: 400;
   letter-spacing: 0.5px;
 }
@@ -146,32 +149,33 @@ const isActive = computed(() => (path: string) => {
 .sidebar-nav {
   flex: 1;
   overflow-y: auto;
-  padding: 4px 0 0;
+  padding: 12px 0;
 }
 
 .nav-group {
-  padding: 16px 12px 8px;
+  padding: 16px 16px 8px;
 }
 
 .nav-group-label {
   font-size: 10px;
   font-weight: 600;
-  color: #94a3b8;
+  color: #95a6ae;
   letter-spacing: 1px;
   text-transform: uppercase;
   padding: 0 8px;
-  margin-bottom: 4px;
+  margin-bottom: 10px;
 }
 
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 8px 10px;
-  border-radius: 6px;
+  gap: 12px;
+  padding: 14px 12px;
+  margin-block: 3px;
+  border-radius: 7px;
   cursor: pointer;
   transition: all 0.15s;
-  color: #475569;
+  color: #bbc6ca;
   font-size: 13px;
   font-weight: 500;
   text-decoration: none;
@@ -179,17 +183,25 @@ const isActive = computed(() => (path: string) => {
 }
 
 .nav-item:hover {
-  background: #f8fafc;
-  color: #1e293b;
+  background: #273339;
+  color: #fff;
 }
 
 .nav-item.active {
-  background: #e8f0ff;
-  color: #0064ff;
+  background: #c4eccf;
+  color: #172126;
+}
+.nav-item.active::after {
+  content: '';
+  margin-left: auto;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
 }
 
 .nav-icon {
-  font-size: 13px;
+  font-size: 16px;
   width: 16px;
   text-align: center;
   flex-shrink: 0;
@@ -197,12 +209,24 @@ const isActive = computed(() => (path: string) => {
 }
 
 .nav-item.active .nav-icon {
-  color: #0064ff;
+  color: #172126;
 }
 
 .nav-label {
   line-height: 1;
 }
-
-
+.sidebar-footer {
+  padding: 24px 28px 28px;
+  border-top: 1px solid #303b40;
+  color: #bdc9ce;
+  font-size: 12px;
+}
+.workspace-mark { display: block; margin-bottom: 16px; font: 600 30px var(--font-heading); letter-spacing: -2px; color: #edf5f0; }
+.workspace-mark span { color: #c4eccf; }
+.workspace-caption { display: block; margin-top: 6px; font: 9px var(--font-mono); letter-spacing: 1px; color: #95a6ae; }
+@media (max-height: 700px) {
+  .sidebar-footer { display: none; }
+  .sidebar-logo { min-height: 72px; height: 72px; }
+  .nav-group { padding-top: 10px; }
+}
 </style>

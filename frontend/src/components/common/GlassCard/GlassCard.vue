@@ -43,7 +43,8 @@ withDefaults(defineProps<Props>(), {
   border-radius: var(--radius-lg, 12px);
   box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06));
   overflow: hidden;
-  transition: all 0.2s ease;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  min-width: 0;
 }
 
 .glass-card-hoverable:hover {
@@ -66,11 +67,13 @@ withDefaults(defineProps<Props>(), {
 }
 
 .glass-card-header {
-  padding: 16px 20px;
+  padding: 18px 24px;
   border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
 }
 
 .glass-card-title {
@@ -81,12 +84,16 @@ withDefaults(defineProps<Props>(), {
 }
 
 .glass-card-body {
-  padding: var(--card-padding, 20px);
+  padding: var(--card-padding, 24px);
 }
 
 .glass-card-footer {
   padding: 14px 20px;
   border-top: 1px solid var(--color-border-subtle, #f1f5f9);
   background: var(--color-bg-glass-strong, #f8fafc);
+}
+@media (max-width: 600px) {
+  .glass-card-header { padding: 16px 20px; }
+  .glass-card-body { padding: var(--card-padding, 20px); }
 }
 </style>

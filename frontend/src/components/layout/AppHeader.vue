@@ -1,8 +1,11 @@
 <template>
   <header class="app-header">
     <div class="header-left">
+      <button ref="menuButton" class="btn-icon mobile-menu" aria-label="打开导航菜单" :aria-expanded="menuOpen" @click="$emit('toggle-menu')">
+        <MenuOutlined />
+      </button>
       <div class="header-breadcrumb">
-        <span>AutoDrive</span>
+        <span class="breadcrumb-root">工作空间</span>
         <i class="breadcrumb-sep">
           <RightOutlined style="font-size: 9px" />
         </i>
@@ -10,21 +13,16 @@
       </div>
     </div>
     <div class="header-actions">
-      <div class="notif-wrap">
-        <button class="btn-icon">
-          <BellOutlined />
-        </button>
-        <span class="notif-dot"></span>
-      </div>
       <button class="btn btn-primary" @click="$router.push('/import')">
         <PlusOutlined />
         导入数据
       </button>
       <a-dropdown :trigger="['click']">
-        <div class="user-trigger">
+        <button class="user-trigger" aria-label="账户菜单" aria-haspopup="menu">
           <div class="header-avatar">{{ userInitial }}</div>
           <span class="header-username">{{ authStore.user?.username || '' }}</span>
-        </div>
+          <DownOutlined class="user-chevron" />
+        </button>
         <template #overlay>
           <a-menu @click="handleMenuClick">
             <a-menu-item key="profile" disabled>
@@ -72,7 +70,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { BellOutlined, PlusOutlined, RightOutlined, UserOutlined, LockOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { MenuOutlined, DownOutlined, PlusOutlined, RightOutlined, UserOutlined, LockOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import { useAuthStore } from '@/stores/auth'
 import { authApi } from '@/api/auth'
@@ -80,6 +78,10 @@ import { authApi } from '@/api/auth'
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
+defineProps<{ menuOpen: boolean }>()
+defineEmits<{ 'toggle-menu': [] }>()
+const menuButton = ref<HTMLButtonElement | null>(null)
+defineExpose({ focusMenu: () => menuButton.value?.focus() })
 
 const pageTitle = computed(() => {
   return (route.meta?.title as string) || '多模态检索平台'
@@ -130,29 +132,29 @@ async function handleChangePassword() {
 
 <style scoped>
 .app-header {
-  height: 56px;
-  min-height: 56px;
-  background: #ffffff;
-  border-bottom: 1px solid #e2e8f0;
+  height: var(--header-h);
+  min-height: var(--header-h);
+  background: var(--color-bg-page);
+  border-bottom: 1px solid var(--color-border);
   display: flex;
   align-items: center;
-  padding: 0 24px;
+  padding: 0 clamp(24px, 3vw, 52px);
   gap: 16px;
   flex-shrink: 0;
-  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .header-left {
   display: flex;
   align-items: center;
+  gap: 12px;
 }
 
 .header-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 12px;
   font-size: 12px;
-  color: #94a3b8;
+  color: var(--gray-500);
 }
 
 .breadcrumb-sep {
@@ -170,7 +172,7 @@ async function handleChangePassword() {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 20px;
 }
 
 .notif-wrap {
@@ -179,8 +181,8 @@ async function handleChangePassword() {
 }
 
 .btn-icon {
-  width: 32px;
-  height: 32px;
+  width: 40px;
+  height: 40px;
   padding: 0;
   display: inline-flex;
   align-items: center;
@@ -213,7 +215,8 @@ async function handleChangePassword() {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 7px 14px;
+  min-height: 38px;
+  padding: 8px 16px;
   border-radius: 6px;
   font-size: 13px;
   font-weight: 500;
@@ -223,13 +226,13 @@ async function handleChangePassword() {
 }
 
 .btn-primary {
-  background: #0064ff;
+  background: var(--color-primary);
   color: white;
-  box-shadow: 0 1px 3px rgba(0, 100, 255, 0.3);
+  box-shadow: none;
 }
 
 .btn-primary:hover {
-  background: #0052d9;
+  background: var(--color-primary-dark);
   box-shadow: 0 2px 8px rgba(0, 100, 255, 0.4);
   transform: translateY(-1px);
 }
@@ -249,14 +252,14 @@ async function handleChangePassword() {
 }
 
 .header-avatar {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0064ff 0%, #7c3aed 100%);
+  background: #dfe7e4;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #34483d;
   font-size: 11px;
   font-weight: 600;
   flex-shrink: 0;
@@ -266,5 +269,18 @@ async function handleChangePassword() {
   font-size: 13px;
   font-weight: 500;
   color: #334155;
+}
+.user-chevron { font-size: 9px; color: var(--gray-500); }
+.mobile-menu { display: none; }
+@media (max-width: 960px) {
+  .mobile-menu { display: inline-flex; }
+}
+@media (max-width: 600px) {
+  .app-header { padding: 0 12px; gap: 8px; }
+  .header-actions { gap: 8px; }
+  .header-username, .user-chevron, .breadcrumb-root, .breadcrumb-sep { display: none; }
+  .btn { padding: 8px 12px; }
+  .user-trigger { padding: 4px; }
+  .header-breadcrumb { white-space: nowrap; }
 }
 </style>

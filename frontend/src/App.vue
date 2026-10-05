@@ -24,9 +24,13 @@ const isAuthPage = computed(() => {
 
 const themeConfig = reactive({
   token: {
-    colorPrimary: '#0064ff',
+    colorPrimary: '#245bea',
     borderRadius: 8,
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+    controlHeight: 38,
+    colorText: '#26363d',
+    colorTextSecondary: '#5f7075',
+    colorBorder: '#dfe4e1',
+    fontFamily: "'Noto Sans SC', 'PingFang SC', sans-serif",
   },
 })
 

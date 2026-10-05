@@ -35,6 +35,33 @@ input, textarea, select {
   font-family: inherit;
 }
 
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+button:disabled { cursor: not-allowed; }
+
+.navigation-drawer .ant-drawer-header { background: #172126; border-bottom-color: #303b40; }
+.navigation-drawer .ant-drawer-title,
+.navigation-drawer .ant-drawer-close { color: #edf4ef; }
+.navigation-drawer .sidebar { width: 100%; min-width: 0; }
+.navigation-drawer .sidebar-logo { display: none; }
+
+/* Motion is reserved for entry and actionable elements. */
+.dashboard-header { animation: fadeInUp .45s ease both; }
+.dashboard-page > .stats-grid { animation: fadeInUp .45s .06s ease both; }
+.dashboard-grid { animation: fadeInUp .45s .12s ease both; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 /* ===== 滚动条样式 ===== */
 ::-webkit-scrollbar {
   width: 6px;

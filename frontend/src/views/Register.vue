@@ -1,5 +1,5 @@
 <template>
-  <div class="register-page">
+  <AuthLayout>
     <div class="register-card">
       <!-- Brand -->
       <div class="brand">
@@ -11,38 +11,42 @@
           </svg>
         </div>
         <h1 class="brand-title">创建账号</h1>
-        <p class="brand-sub">MULTIMODAL RETRIEVAL</p>
+        <p class="brand-sub">开启你的多模态数据工作空间。</p>
       </div>
 
       <!-- Form -->
       <a-form layout="vertical" :model="form" @finish="handleRegister">
-        <a-form-item label="用户名">
+        <a-form-item label="用户名" name="username">
           <a-input
             v-model:value="form.username"
             size="large"
             placeholder="请输入用户名"
+            autocomplete="username"
             :disabled="loading"
           >
             <template #prefix><UserOutlined /></template>
           </a-input>
         </a-form-item>
 
-        <a-form-item label="邮箱（可选）">
+        <a-form-item label="邮箱（可选）" name="email">
           <a-input
             v-model:value="form.email"
             size="large"
             placeholder="请输入邮箱"
+            autocomplete="email"
+            type="email"
             :disabled="loading"
           >
             <template #prefix><MailOutlined /></template>
           </a-input>
         </a-form-item>
 
-        <a-form-item label="密码">
+        <a-form-item label="密码" name="password">
           <a-input-password
             v-model:value="form.password"
             size="large"
             placeholder="请输入密码"
+            autocomplete="new-password"
             :disabled="loading"
           >
             <template #prefix><LockOutlined /></template>
@@ -55,13 +59,13 @@
           </div>
         </a-form-item>
 
-        <a-form-item label="确认密码">
+        <a-form-item label="确认密码" name="confirmPassword">
           <a-input-password
             v-model:value="form.confirmPassword"
             size="large"
             placeholder="请再次输入密码"
+            autocomplete="new-password"
             :disabled="loading"
-            @pressEnter="handleRegister"
           >
             <template #prefix><LockOutlined /></template>
           </a-input-password>
@@ -84,7 +88,7 @@
         <router-link to="/login" class="link">立即登录</router-link>
       </div>
     </div>
-  </div>
+  </AuthLayout>
 </template>
 
 <script setup lang="ts">
@@ -93,6 +97,7 @@ import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons-vue'
 import { useAuthStore } from '@/stores/auth'
+import AuthLayout from '@/components/layout/AuthLayout.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -131,6 +136,7 @@ const passwordStrengthLabel = computed(() => {
 })
 
 async function handleRegister() {
+  if (loading.value) return
   if (!form.username || !form.password) {
     message.warning('请填写用户名和密码')
     return
@@ -171,42 +177,38 @@ async function handleRegister() {
 .register-card {
   width: 100%;
   max-width: 400px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 40px 36px 32px;
-  box-shadow: var(--shadow-lg, 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05));
+  padding: 16px;
 }
 
 .brand {
-  text-align: center;
+  text-align: left;
   margin-bottom: 32px;
 }
 
 .brand-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #0064ff 0%, #4080ff 100%);
-  border-radius: 12px;
+  background: #e3ebe5;
+  border-radius: 10px 2px 10px 2px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #345748;
   margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
 }
 
 .brand-title {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
   color: var(--gray-900, #0f172a);
-  margin: 0 0 4px;
+  margin: 0 0 10px;
   letter-spacing: -0.3px;
 }
 
 .brand-sub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--gray-400, #94a3b8);
-  letter-spacing: 2px;
+  letter-spacing: 0;
   margin: 0;
 }
 

@@ -1,9 +1,13 @@
 <template>
   <div class="main-layout">
-    <AppSidebar />
-    <div class="main-content">
-      <AppHeader />
-      <div class="content-area">
+    <a class="skip-link" href="#main-content">跳转到主要内容</a>
+    <AppSidebar class="desktop-sidebar" />
+    <a-drawer v-model:open="menuOpen" placement="left" :width="264" title="工作台导航" :body-style="{ padding: 0 }" class="navigation-drawer" @after-open-change="restoreNavigationFocus">
+      <AppSidebar @navigate="menuOpen = false" />
+    </a-drawer>
+    <div class="main-content" :inert="menuOpen || undefined">
+      <AppHeader ref="header" :menu-open="menuOpen" @toggle-menu="menuOpen = !menuOpen" />
+      <main id="main-content" class="content-area" tabindex="-1">
         <router-view v-slot="{ Component }">
           <Suspense>
             <template #default>
@@ -18,35 +22,76 @@
             </template>
           </Suspense>
         </router-view>
-      </div>
+      </main>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { onMounted, onUnmounted, ref, watch } from 'vue'
+import { useRoute } from 'vue-router'
 import AppSidebar from './AppSidebar.vue'
 import AppHeader from './AppHeader.vue'
+
+const menuOpen = ref(false)
+const header = ref<InstanceType<typeof AppHeader> | null>(null)
+const route = useRoute()
+const desktopMedia = window.matchMedia('(min-width: 961px)')
+const closeOnDesktop = () => { if (desktopMedia.matches) menuOpen.value = false }
+function restoreNavigationFocus(open: boolean) {
+  if (!open && !desktopMedia.matches) header.value?.focusMenu()
+}
+watch(() => route.fullPath, () => { menuOpen.value = false })
+onMounted(() => desktopMedia.addEventListener('change', closeOnDesktop))
+onUnmounted(() => desktopMedia.removeEventListener('change', closeOnDesktop))
 </script>
 
 <style scoped>
 .main-layout {
   display: flex;
-  height: 100vh;
+  height: 100dvh;
   overflow: hidden;
 }
 
 .main-content {
   flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  background: #f8fafc;
+  background: var(--color-bg-page);
 }
 
 .content-area {
   flex: 1;
   overflow-y: auto;
-  padding: 24px;
+  padding: 36px clamp(24px, 3vw, 52px) 48px;
+  scrollbar-gutter: stable;
+}
+
+.content-area > :deep(*) {
+  max-width: 1600px;
+  margin-inline: auto;
+}
+
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 280px;
+  z-index: 1100;
+  padding: 12px 20px;
+  background: white;
+  transform: translateY(-150%);
+}
+.skip-link:focus { transform: translateY(0); }
+
+@media (max-width: 960px) {
+  .desktop-sidebar { display: none; }
+  .content-area { padding: 24px; }
+  .skip-link { left: 16px; }
+}
+@media (max-width: 600px) {
+  .content-area { padding: 24px 16px 32px; scrollbar-gutter: auto; }
 }
 
 /* Suspense fallback */

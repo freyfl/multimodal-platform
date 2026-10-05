@@ -1,5 +1,5 @@
 <template>
-  <div class="login-page">
+  <AuthLayout>
     <div class="login-card">
       <!-- Brand -->
       <div class="brand">
@@ -10,8 +10,8 @@
             <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1 class="brand-title">多模态检索平台</h1>
-        <p class="brand-sub">MULTIMODAL RETRIEVAL</p>
+        <h1 class="brand-title">欢迎回来</h1>
+        <p class="brand-sub">登录，继续你的数据探索。</p>
       </div>
 
       <!-- Form -->
@@ -21,6 +21,7 @@
             v-model:value="form.username"
             size="large"
             placeholder="请输入用户名"
+            autocomplete="username"
             :disabled="loading"
           >
             <template #prefix><UserOutlined /></template>
@@ -32,16 +33,12 @@
             v-model:value="form.password"
             size="large"
             placeholder="请输入密码"
+            autocomplete="current-password"
             :disabled="loading"
-            @pressEnter="handleLogin"
           >
             <template #prefix><LockOutlined /></template>
           </a-input-password>
         </a-form-item>
-
-        <div class="form-extra">
-          <a-checkbox v-model:checked="rememberMe">记住我</a-checkbox>
-        </div>
 
         <a-button
           type="primary"
@@ -50,9 +47,8 @@
           :loading="loading"
           class="login-btn"
           html-type="submit"
-          @click="handleLogin"
         >
-          登录
+          进入工作空间
         </a-button>
 
       </a-form>
@@ -62,7 +58,7 @@
         <router-link to="/register" class="link">立即注册</router-link>
       </div>
     </div>
-  </div>
+  </AuthLayout>
 </template>
 
 <script setup lang="ts">
@@ -71,6 +67,7 @@ import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
 import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
 import { useAuthStore } from '@/stores/auth'
+import AuthLayout from '@/components/layout/AuthLayout.vue'
 
 const router = useRouter()
 const authStore = useAuthStore()
@@ -79,10 +76,10 @@ const form = reactive({
   username: '',
   password: '',
 })
-const rememberMe = ref(true)
 const loading = ref(false)
 
 async function handleLogin() {
+  if (loading.value) return
   if (!form.username || !form.password) {
     message.warning('请输入用户名和密码')
     return
@@ -114,42 +111,38 @@ async function handleLogin() {
 .login-card {
   width: 100%;
   max-width: 400px;
-  background: #fff;
-  border-radius: 16px;
-  padding: 40px 36px 32px;
-  box-shadow: var(--shadow-lg, 0 10px 15px rgba(0,0,0,0.08), 0 4px 6px rgba(0,0,0,0.05));
+  padding: 20px 16px;
 }
 
 .brand {
-  text-align: center;
-  margin-bottom: 32px;
+  text-align: left;
+  margin-bottom: 36px;
 }
 
 .brand-icon {
   width: 48px;
   height: 48px;
-  background: linear-gradient(135deg, #0064ff 0%, #4080ff 100%);
-  border-radius: 12px;
+  background: #e3ebe5;
+  border-radius: 10px 2px 10px 2px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: #345748;
   margin-bottom: 16px;
-  box-shadow: 0 4px 12px rgba(0, 100, 255, 0.3);
 }
 
 .brand-title {
-  font-size: 20px;
+  font-size: 30px;
   font-weight: 700;
   color: var(--gray-900, #0f172a);
-  margin: 0 0 4px;
+  margin: 0 0 10px;
   letter-spacing: -0.3px;
 }
 
 .brand-sub {
-  font-size: 11px;
+  font-size: 13px;
   color: var(--gray-400, #94a3b8);
-  letter-spacing: 2px;
+  letter-spacing: 0;
   margin: 0;
 }
 
@@ -161,7 +154,7 @@ async function handleLogin() {
 }
 
 .login-btn {
-  height: 44px;
+  height: 46px;
   font-size: 15px;
   font-weight: 600;
   border-radius: 10px;
@@ -195,4 +188,7 @@ async function handleLogin() {
 .form-footer .link:hover {
   text-decoration: underline;
 }
+.login-card :deep(.ant-input-affix-wrapper) { padding: 11px 12px; }
+.login-card :deep(.ant-input-prefix) { margin-right: 10px; color: var(--gray-500); }
+.login-card :deep(.ant-form-item-label) { padding-bottom: 10px; }
 </style>

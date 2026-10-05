@@ -103,6 +103,27 @@ const server = http.createServer((req, res) => {
     const parsed = body ? JSON.parse(body) : null
     requestLog.push({ method: req.method, path: url.pathname, query: Object.fromEntries(url.searchParams), body: parsed })
 
+    // Local UI acceptance only: no production credentials or model requests.
+    if (url.pathname === '/api/auth/login') {
+      return sendJson(res, {
+        access_token: 'fixture-access', refresh_token: 'fixture-refresh',
+        user: { id: 'fixture-user', username: 'fixture', email: null, role: 'user', is_demo: 0, is_active: 1 },
+      })
+    }
+    if (url.pathname === '/api/auth/logout') return sendJson(res, {})
+    if (url.pathname === '/api/settings/me' && req.method === 'GET') {
+      return sendJson(res, { id: '', user_id: 'fixture-user', embedding_model: 'embedding', embedding_dimension: 1024, tag_model: 'doubao-seed-2-1-lite-260915' })
+    }
+    if (url.pathname === '/api/system/health') return sendJson(res, { status: 'healthy' })
+    if (url.pathname === '/api/system/stats') {
+      return sendJson(res, {
+        media: { total: media.length, images: media.filter(item => item.file_type === 'image').length, videos: 1, storage_used_gb: 0.12 },
+        performance: { total_searches: 0 },
+      })
+    }
+    if (url.pathname === '/api/system/dashboard') {
+      return sendJson(res, { bucket: { bucket_name: 'fixture-perception-data', region: 'cn-beijing', endpoint: 'tos-cn-beijing.volces.com' }, imported_dirs: [] })
+    }
     if (url.pathname === '/api/auth/me') {
       return sendJson(res, { id: 'fixture-user', username: 'fixture', email: null, role: 'user', is_demo: 0, is_active: 1, created_at: now })
     }

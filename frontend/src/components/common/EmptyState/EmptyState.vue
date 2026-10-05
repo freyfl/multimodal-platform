@@ -47,8 +47,16 @@ withDefaults(defineProps<Props>(), {
 }
 
 .empty-icon {
-  font-size: 40px;
-  opacity: 0.4;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--color-border);
+  border-radius: 16px 4px 16px 4px;
+  background: var(--gray-50);
+  color: var(--gray-500);
+  font-size: 24px;
 }
 
 .empty-text {
@@ -62,6 +70,7 @@ withDefaults(defineProps<Props>(), {
   font-size: 12px;
   color: var(--gray-400, #94a3b8);
   margin: 0;
+  line-height: 1.8;
 }
 
 .empty-actions {

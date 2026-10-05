@@ -1,10 +1,10 @@
 /* ===== 设计系统 CSS 变量 ===== */
-/* Ali Blue 专业浅色主题 */
+/* Perception workspace · graphite / paper / cobalt */
 :root {
   /* ── 字体 ── */
-  --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  --font-heading: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-  --font-mono: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+  --font-body: 'Noto Sans SC', 'PingFang SC', sans-serif;
+  --font-heading: 'Exo 2', 'Noto Sans SC', sans-serif;
+  --font-mono: 'Roboto Mono', monospace;
 
   /* ── 字号 ── */
   --text-2xs: 10px;
@@ -19,7 +19,7 @@
   --text-3xl: 28px;
 
   /* ── 主色 Ali Blue ── */
-  --color-primary: #0064ff;
+  --color-primary: #245bea;
   --color-primary-light: #4080ff;
   --color-primary-bg: #e8f0ff;
   --color-primary-dark: #0052d9;
@@ -56,16 +56,16 @@
   --color-accent-glow: rgba(0, 100, 255, 0.2);
 
   /* ── 中性灰度 ── */
-  --gray-50: #f8fafc;
-  --gray-100: #f1f5f9;
-  --gray-200: #e2e8f0;
+  --gray-50: #f5f6f4;
+  --gray-100: #edf0ed;
+  --gray-200: #dfe4e1;
   --gray-300: #cbd5e1;
-  --gray-400: #94a3b8;
-  --gray-500: #64748b;
+  --gray-400: #77868a;
+  --gray-500: #5f7075;
   --gray-600: #475569;
   --gray-700: #334155;
-  --gray-800: #1e293b;
-  --gray-900: #0f172a;
+  --gray-800: #26363d;
+  --gray-900: #172126;
   --white: #ffffff;
 
   /* ── 文字颜色 ── */
@@ -92,8 +92,8 @@
 
   /* ── 阴影（与设计稿对齐） ── */
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
-  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07), 0 2px 4px rgba(0, 0, 0, 0.06);
+  --shadow: 0 2px 4px rgba(23, 33, 38, 0.025);
+  --shadow-md: 0 6px 20px rgba(23, 33, 38, 0.06);
   --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.05);
   --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.08), 0 10px 10px rgba(0, 0, 0, 0.04);
   --shadow-2xl: var(--shadow-xl);
@@ -114,7 +114,7 @@
   --radius-sm: 6px;
   --radius: 8px;
   --radius-md: 10px;
-  --radius-lg: 12px;
+  --radius-lg: 10px;
   --radius-xl: 16px;
   --radius-2xl: 20px;
   --radius-pill: 999px;
@@ -148,6 +148,6 @@
   --z-modal: 100;
 
   /* ── 布局 ── */
-  --sidebar-w: 220px;
-  --header-h: 56px;
+  --sidebar-w: 240px;
+  --header-h: 72px;
 }

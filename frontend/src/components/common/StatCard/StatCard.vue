@@ -3,7 +3,7 @@
     <div class="stat-card-body">
       <div class="stat-content">
         <div class="stat-label">{{ title }}</div>
-        <div class="stat-value">{{ value }}</div>
+        <div class="stat-value">{{ typeof value === 'number' ? value.toLocaleString('zh-CN') : value }}</div>
         <div v-if="trend" class="stat-change" :class="trendClass">
           <span class="trend-arrow">{{ trendIcon }}</span>
           {{ trend }}
@@ -59,11 +59,6 @@ const trendIcon = computed(() => {
   transition: box-shadow 0.2s ease, transform 0.2s ease;
 }
 
-.stat-card:hover {
-  box-shadow: var(--shadow-md, 0 4px 6px rgba(0,0,0,0.07), 0 2px 4px rgba(0,0,0,0.06));
-  transform: translateY(-2px);
-}
-
 /* Top gradient bar */
 .stat-card::before {
   content: '';
@@ -71,7 +66,7 @@ const trendIcon = computed(() => {
   top: 0;
   left: 0;
   right: 0;
-  height: 3px;
+  height: 0;
 }
 
 .stat-color-blue::before {
@@ -106,15 +101,17 @@ const trendIcon = computed(() => {
 }
 
 .stat-icon-wrapper {
-  width: 44px;
-  height: 44px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 20px;
+  font-size: 16px;
   flex-shrink: 0;
-  margin-left: 12px;
+  margin-left: 8px;
+  background: var(--gray-50);
+  color: var(--gray-500);
 }
 
 .icon-blue {
@@ -146,14 +143,16 @@ const trendIcon = computed(() => {
   font-size: 12px;
   color: var(--gray-500, #64748b);
   font-weight: 500;
-  margin-bottom: 8px;
+  margin-bottom: 20px;
 }
 
 .stat-value {
-  font-size: var(--text-3xl, 28px);
-  font-weight: 700;
+  font-family: var(--font-heading);
+  font-size: clamp(28px, 2.6vw, 40px);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
   color: var(--gray-900, #111827);
-  letter-spacing: -1px;
+  letter-spacing: -1.5px;
   line-height: 1;
   margin-bottom: 6px;
 }

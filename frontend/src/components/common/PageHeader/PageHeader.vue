@@ -34,7 +34,8 @@ withDefaults(defineProps<Props>(), {
   display: flex;
   align-items: flex-start;
   justify-content: space-between;
-  margin-bottom: 0;
+  margin-bottom: 24px;
+  gap: 20px;
 }
 
 .header-content {
@@ -42,10 +43,11 @@ withDefaults(defineProps<Props>(), {
 }
 
 .page-title {
-  font-size: 16px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--gray-900, #0f172a);
-  margin: 0 0 4px 0;
+  margin: 0 0 10px 0;
+  letter-spacing: -.8px;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -62,12 +64,18 @@ withDefaults(defineProps<Props>(), {
 .page-subtitle {
   color: var(--gray-500, #64748b);
   font-size: 13px;
-  margin: 0 0 20px 0;
+  margin: 0;
+  line-height: 1.8;
 }
 
 .header-extra {
   display: flex;
   align-items: center;
   gap: 12px;
+}
+@media (max-width: 600px) {
+  .page-header { flex-direction: column; gap: 12px; }
+  .page-title { font-size: 24px; }
+  .header-extra { flex-wrap: wrap; }
 }
 </style>

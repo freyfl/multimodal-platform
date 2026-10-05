@@ -44,9 +44,26 @@ code, pre, .mono {
   opacity: 0;
 }
 
-.glass-card:hover {
+.glass-card-hoverable:hover {
   border-color: var(--color-border-hover);
   box-shadow: var(--shadow-md);
+}
+
+/* Preserve disabled and validation semantics alongside the visual theme. */
+.ant-btn.ant-btn-primary:disabled,
+.ant-btn.ant-btn-primary:disabled:hover {
+  background: var(--gray-100) !important;
+  border-color: var(--gray-200) !important;
+  color: var(--gray-400) !important;
+  box-shadow: none !important;
+  transform: none;
+}
+.ant-btn-primary:disabled .anticon { color: inherit !important; }
+.ant-input.ant-input-status-error,
+.ant-input-affix-wrapper.ant-input-affix-wrapper-status-error,
+.ant-form-item-has-error .ant-input,
+.ant-form-item-has-error .ant-input-affix-wrapper {
+  border-color: var(--color-error) !important;
 }
 
 .glass-card:hover::before {

@@ -34,15 +34,16 @@
               >
                 <div class="category-label">{{ category.name }}</div>
                 <div class="category-tags">
-                  <span
+                  <button
                     v-for="tag in category.tags"
                     :key="tag.id"
                     class="tag-chip"
                     :class="{ active: selectedTagIds.includes(tag.id) }"
+                    :aria-pressed="selectedTagIds.includes(tag.id)"
                     @click="toggleTag(tag)"
                   >
                     {{ tag.name }}
-                  </span>
+                  </button>
                 </div>
               </div>
             </div>
@@ -55,15 +56,17 @@
         <!-- 已选标签区 -->
         <div class="selected-section" v-if="selectedTags.length > 0">
           <span class="selected-label">已选标签：</span>
-          <span
+          <button
             v-for="tag in selectedTags"
             :key="tag.id"
             class="tag-chip active"
+            :aria-label="`移除标签 ${tag.name}`"
+            @click="removeTag(tag)"
           >
             <span class="selected-source">{{ sourceLabels[tag.source] }}</span>
             {{ tag.name }}
-            <CloseOutlined class="tag-remove" @click.stop="removeTag(tag)" />
-          </span>
+            <CloseOutlined class="tag-remove" />
+          </button>
 
           <!-- AND/OR 切换 -->
           <a-radio-group v-model:value="searchLogic" size="small" class="logic-toggle">
@@ -108,16 +111,20 @@
             导出当前页 Excel
           </a-button>
           <div class="view-toggle">
-            <AppstoreOutlined
+            <button
               class="view-icon"
               :class="{ active: viewMode === 'grid' }"
+              aria-label="网格视图"
+              :aria-pressed="viewMode === 'grid'"
               @click="viewMode = 'grid'"
-            />
-            <UnorderedListOutlined
+            ><AppstoreOutlined /></button>
+            <button
               class="view-icon"
               :class="{ active: viewMode === 'list' }"
+              aria-label="列表视图"
+              :aria-pressed="viewMode === 'list'"
               @click="viewMode = 'list'"
-            />
+            ><UnorderedListOutlined /></button>
           </div>
         </div>
       </div>
@@ -381,15 +388,17 @@ onBeforeUnmount(() => {
 }
 
 .search-card-header {
-  padding: 12px 16px;
-  border-bottom: 1px solid #f1f5f9;
+  padding: 18px 24px;
+  border-bottom: 1px solid var(--color-border-subtle);
   display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
   align-items: center;
   justify-content: space-between;
 }
 
 .search-card-body {
-  padding: 16px;
+  padding: 24px;
 }
 
 .card-title {
@@ -493,6 +502,7 @@ onBeforeUnmount(() => {
 
 .category-tags {
   display: flex;
+  min-width: 0;
   flex-wrap: wrap;
   gap: 6px;
 }
@@ -508,7 +518,10 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 2px 8px;
+  padding: 6px 10px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  text-align: left;
   border-radius: 14px;
   font-size: 12px;
   border: 1px solid #e2e8f0;
@@ -610,6 +623,7 @@ onBeforeUnmount(() => {
 /* 视图切换 */
 .results-actions {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   gap: 12px;
 }
@@ -632,7 +646,7 @@ onBeforeUnmount(() => {
   font-size: 16px;
   color: var(--gray-400, #94a3b8);
   cursor: pointer;
-  padding: 4px;
+  padding: 8px;
   border-radius: 4px;
   transition: all 0.15s;
 }

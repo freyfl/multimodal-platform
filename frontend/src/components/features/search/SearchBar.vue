@@ -5,6 +5,7 @@
       <a-input
         v-model:value="searchText"
         :placeholder="placeholder"
+        aria-label="描述要检索的图片或视频"
         size="large"
         class="search-input"
         @pressEnter="handleSearch"
@@ -50,7 +51,7 @@
         </a-button>
       </div>
       <div class="history-tags">
-        <a-tag
+        <button
           v-for="(item, index) in history.slice(0, 10)"
           :key="index"
           class="history-tag stagger-item"
@@ -58,7 +59,7 @@
           @click="handleHistoryClick(item)"
         >
           {{ item }}
-        </a-tag>
+        </button>
       </div>
     </div>
   </div>
@@ -151,6 +152,7 @@ const handleClearHistory = () => {
 
 .search-input {
   flex: 1;
+  min-width: 0;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -185,6 +187,7 @@ const handleClearHistory = () => {
 
 .search-options {
   display: flex;
+  flex-wrap: wrap;
   gap: 24px;
   margin-top: 14px;
   padding: 12px 16px;
@@ -291,5 +294,10 @@ const handleClearHistory = () => {
   border-color: var(--color-primary) !important;
   color: var(--color-primary) !important;
   background: var(--color-primary-bg) !important;
+}
+@media (max-width: 600px) {
+  .search-icon { padding: 0 8px; }
+  .search-options { gap: 12px; padding: 12px; }
+  .search-btn { padding: 0 14px !important; flex-shrink: 0; }
 }
 </style>

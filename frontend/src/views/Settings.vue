@@ -956,14 +956,15 @@ onMounted(() => {
 
 /* ── Page Header ── */
 .page-header {
-  margin-bottom: 0;
+  margin-bottom: 24px;
 }
 
 .page-title {
-  font-size: 16px;
+  font-size: 28px;
   font-weight: 700;
   color: var(--gray-900, #0f172a);
-  margin: 0 0 4px 0;
+  margin: 0 0 10px 0;
+  letter-spacing: -.8px;
 }
 
 .page-subtitle {
@@ -1288,7 +1289,7 @@ onMounted(() => {
   }
 }
 
-@media (max-width: 1024px) {
+@media (min-width: 769px) and (max-width: 1024px) {
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
   }

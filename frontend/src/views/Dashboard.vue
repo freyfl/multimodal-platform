@@ -2,36 +2,47 @@
   <div class="dashboard-page">
     <!-- Page Header -->
     <div class="dashboard-header">
-      <h1 class="dashboard-title">数据概览</h1>
-      <p class="dashboard-subtitle">自动驾驶多模态数据检索平台 · 实时监控</p>
+      <div class="dashboard-intro">
+        <div class="eyebrow"><span></span> MULTIMODAL / OVERVIEW</div>
+        <h1 class="dashboard-title">数据概览<span class="title-period">.</span></h1>
+        <p class="dashboard-subtitle">从每一帧出发，让感知数据清晰可见。</p>
+        <div class="overview-actions">
+          <router-link to="/search/annotations" class="overview-link">探索标注数据 <ArrowRightOutlined /></router-link>
+          <button class="refresh-overview" :disabled="refreshing" @click="refreshOverview">
+            <ReloadOutlined :spin="refreshing" /> {{ refreshing ? '更新中' : '刷新概览' }}
+          </button>
+        </div>
+      </div>
+      <PerceptionGraphic class="overview-graphic" />
     </div>
 
+    <a-alert v-if="systemStore.statsError || dashboardError" type="error" show-icon :message="systemStore.statsError || dashboardError" />
     <!-- Stats Grid -->
-    <div class="stats-grid">
+    <div class="stats-grid" :aria-busy="systemStore.isLoading">
       <StatCard
         title="数据总量"
-        :value="systemStore.stats?.media?.total ?? 0"
+        :value="systemStore.stats?.media?.total ?? '—'"
         color="blue"
       >
         <template #icon><DatabaseOutlined /></template>
       </StatCard>
       <StatCard
         title="图片数量"
-        :value="systemStore.stats?.media?.images ?? 0"
+        :value="systemStore.stats?.media?.images ?? '—'"
         color="green"
       >
         <template #icon><FileImageOutlined /></template>
       </StatCard>
       <StatCard
         title="视频数量"
-        :value="systemStore.stats?.media?.videos ?? 0"
+        :value="systemStore.stats?.media?.videos ?? '—'"
         color="orange"
       >
         <template #icon><VideoCameraOutlined /></template>
       </StatCard>
       <StatCard
         title="总搜索次数"
-        :value="systemStore.stats?.performance?.total_searches ?? 0"
+        :value="systemStore.stats?.performance?.total_searches ?? '—'"
         color="purple"
       >
         <template #icon><SearchOutlined /></template>
@@ -42,6 +53,10 @@
     <div class="dashboard-grid">
       <!-- Data Type Distribution -->
       <GlassCard title="数据类型分布">
+        <div class="distribution-intro">
+          <span class="section-index">01 / COMPOSITION</span>
+          <p>你的多模态数据资产</p>
+        </div>
         <div class="type-distribution">
           <div class="dist-item" v-for="item in typeDistribution" :key="item.label">
             <div class="dist-header">
@@ -57,7 +72,7 @@
             </div>
           </div>
           <div v-if="typeDistribution.length === 0" class="dist-empty">
-            暂无数据
+            {{ systemStore.isLoading ? '正在读取数据…' : systemStore.statsError ? '统计暂不可用' : '导入图片或视频，开始积累数据资产' }}
           </div>
         </div>
       </GlassCard>
@@ -71,7 +86,8 @@
             <RightOutlined class="link-icon" />
           </router-link>
         </template>
-        <div class="recent-task-list" v-if="recentTasks.length > 0">
+        <a-skeleton v-if="importStore.isLoading && !recentTasks.length" active :paragraph="{ rows: 2 }" />
+        <div class="recent-task-list" v-else-if="recentTasks.length > 0">
           <div class="recent-task-item" v-for="task in recentTasks" :key="task.task_id">
             <div class="task-info">
               <div class="task-main-name">{{ task.task_id }}</div>
@@ -85,7 +101,9 @@
           title="暂无导入任务"
           description="前往数据导入页面创建新任务"
           :icon="InboxOutlined"
-        />
+        >
+          <template #actions><router-link to="/import" class="empty-action-link">创建第一个导入任务 <ArrowRightOutlined /></router-link></template>
+        </EmptyState>
       </GlassCard>
     </div>
 
@@ -117,7 +135,8 @@
       </div>
       <div v-else class="bucket-empty">
         <CloudServerOutlined class="bucket-empty-icon" />
-        <span>未配置 TOS 存储桶</span>
+        <span>{{ dashboardLoading ? '正在读取存储配置…' : dashboardError ? '存储配置暂不可用' : '未配置 TOS 存储桶' }}</span>
+        <router-link v-if="!dashboardLoading && !dashboardError" to="/settings">前往配置 <ArrowRightOutlined /></router-link>
       </div>
     </GlassCard>
 
@@ -135,6 +154,7 @@
           :dataSource="importedDirs"
           :columns="dirColumns"
           :pagination="false"
+          :scroll="{ x: 760 }"
           row-key="task_id"
           size="small"
         >
@@ -162,8 +182,8 @@
       </div>
       <EmptyState
         v-else
-        title="暂无导入记录"
-        description="前往数据导入页面开始导入"
+        :title="dashboardLoading ? '正在读取导入记录…' : dashboardError ? '导入记录暂不可用' : '暂无导入记录'"
+        :description="dashboardLoading || dashboardError ? '' : '前往数据导入页面开始导入'"
         :icon="FolderOpenOutlined"
       />
     </GlassCard>
@@ -179,7 +199,10 @@ import StatCard from '@/components/common/StatCard/StatCard.vue'
 import GlassCard from '@/components/common/GlassCard/GlassCard.vue'
 import StatusBadge from '@/components/common/StatusBadge/StatusBadge.vue'
 import EmptyState from '@/components/common/EmptyState/EmptyState.vue'
+import PerceptionGraphic from '@/components/common/PerceptionGraphic.vue'
 import {
+  ArrowRightOutlined,
+  ReloadOutlined,
   RightOutlined,
   InboxOutlined,
   FolderOutlined,
@@ -194,6 +217,9 @@ import {
 const systemStore = useSystemStore()
 const importStore = useImportStore()
 const dashboardData = ref<any>(null)
+const dashboardError = ref('')
+const dashboardLoading = ref(true)
+const refreshing = ref(false)
 
 // Recent tasks - top 5
 const recentTasks = computed(() => {
@@ -253,38 +279,52 @@ function formatTime(dateStr: string): string {
 }
 
 async function fetchDashboard() {
+  dashboardLoading.value = true
+  dashboardError.value = ''
   try {
     const res = await getDashboardInfo()
     dashboardData.value = res?.data || null
   } catch (e) {
-    console.error('获取概览数据失败:', e)
+    dashboardError.value = '存储与目录概览读取失败，请刷新重试'
+  } finally {
+    dashboardLoading.value = false
   }
 }
 
-onMounted(() => {
-  systemStore.fetchStats()
-  systemStore.checkHealth()
-  importStore.fetchTasks()
-  fetchDashboard()
-})
+async function refreshOverview() {
+  if (refreshing.value) return
+  refreshing.value = true
+  try {
+    await Promise.all([systemStore.fetchStats(), systemStore.checkHealth(), importStore.fetchTasks(), fetchDashboard()])
+  } finally {
+    refreshing.value = false
+  }
+}
+onMounted(refreshOverview)
 </script>
 
 <style scoped>
 .dashboard-page {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 24px;
 }
 
 .dashboard-header {
-  margin-bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 210px;
+  padding: 0 0 16px;
+  gap: 24px;
 }
 
 .dashboard-title {
-  font-size: 16px;
+  font-size: clamp(30px, 3vw, 42px);
   font-weight: 700;
   color: var(--gray-900, #0f172a);
-  margin: 0 0 4px 0;
+  margin: 12px 0 12px;
+  letter-spacing: -1.5px;
 }
 
 .dashboard-subtitle {
@@ -292,19 +332,43 @@ onMounted(() => {
   color: var(--gray-500, #64748b);
   margin: 0;
 }
+.title-period { color: var(--color-primary); margin-left: 4px; }
+.eyebrow { display: flex; align-items: center; gap: 8px; font: 10px var(--font-mono); letter-spacing: 1.7px; color: var(--gray-500); }
+.eyebrow > span { width: 6px; height: 6px; background: var(--color-primary); }
+.overview-graphic { width: min(40%, 410px); flex-shrink: 0; }
+.overview-actions { display: flex; gap: 24px; align-items: center; margin-top: 24px; font-size: 12px; }
+.overview-link { display: inline-flex; gap: 12px; align-items: center; font-weight: 500; }
+.overview-link .anticon { transition: transform .2s; }
+.overview-link:hover .anticon { transform: translateX(4px); }
+.refresh-overview { display: inline-flex; gap: 6px; align-items: center; color: var(--gray-500); padding: 6px 0; }
+.refresh-overview:disabled { opacity: .6; cursor: wait; }
+.distribution-intro { margin-bottom: 28px; }
+.section-index { font: 10px var(--font-mono); letter-spacing: 1px; color: var(--gray-500); }
+.distribution-intro p { font-size: 21px; letter-spacing: -.5px; margin: 8px 0 0; color: var(--color-text-bright); }
+.empty-action-link { font-size: 12px; }
 
 /* Stats Grid */
 .stats-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 16px;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  border: 1px solid var(--color-border);
+  border-radius: 10px;
+  overflow: hidden;
+  background: white;
 }
-
+.stats-grid :deep(.stat-card) { border: 0; border-radius: 0; border-right: 1px solid var(--color-border); box-shadow: none; padding: 26px; }
+.stats-grid :deep(.stat-card:last-child) { border-right: 0; }
+.stats-grid :deep(.stat-card:first-child) { background: #22343c; }
+.stats-grid :deep(.stat-card:first-child .stat-value) { color: #f2f6f3; }
+.stats-grid :deep(.stat-card:first-child .stat-label) { color: #b9ccc6; }
+.stats-grid :deep(.stat-card:first-child .stat-icon-wrapper) { color: #c4eccf; background: #344b4e; }
+.stats-grid[aria-busy="true"] :deep(.stat-value) { opacity: .35; }
 /* Dashboard Grid - two column */
 .dashboard-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
+  grid-template-columns: minmax(0, .85fr) minmax(0, 1.15fr);
+  gap: 24px;
 }
 
 @media (max-width: 1024px) {
@@ -358,11 +422,11 @@ onMounted(() => {
 }
 
 .bar-blue {
-  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+  background: var(--color-primary);
 }
 
 .bar-green {
-  background: linear-gradient(90deg, #10b981, #34d399);
+  background: #6f9986;
 }
 
 .bar-orange {
@@ -431,6 +495,7 @@ onMounted(() => {
 .task-info {
   flex: 1;
   min-width: 0;
+  padding-right: 16px;
 }
 
 .task-main-name {
@@ -443,7 +508,7 @@ onMounted(() => {
 }
 
 .task-meta {
-  font-size: 11px;
+  font-size: 12px;
   color: var(--gray-400, #9ca3af);
   margin-top: 2px;
   white-space: nowrap;
@@ -476,7 +541,7 @@ onMounted(() => {
 
 .bucket-detail-row {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 16px;
 }
 
@@ -498,10 +563,11 @@ onMounted(() => {
   font-size: 13px;
   font-weight: 600;
   color: var(--gray-800, #1e293b);
+  overflow-wrap: anywhere;
 }
 
 .bucket-name-mono {
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
 }
 
@@ -528,7 +594,7 @@ onMounted(() => {
 
 .table-wrapper {
   overflow-x: auto;
-  margin: -20px;
+  margin: 0;
 }
 
 .table-wrapper :deep(.ant-table) {
@@ -593,5 +659,18 @@ onMounted(() => {
   .bucket-detail-row {
     grid-template-columns: repeat(2, 1fr);
   }
+  .dashboard-header { min-height: 180px; }
+  .stats-grid :deep(.stat-card:nth-child(2)) { border-right: 0; }
+  .stats-grid :deep(.stat-card:nth-child(-n+2)) { border-bottom: 1px solid var(--color-border); }
+}
+@media (max-width: 600px) {
+  .dashboard-page { gap: 20px; }
+  .overview-graphic { display: none; }
+  .dashboard-header { padding-bottom: 0; }
+  .stats-grid :deep(.stat-card) { padding: 20px 16px; }
+  .stats-grid :deep(.stat-icon-wrapper) { display: none; }
+  .bucket-detail-row { grid-template-columns: 1fr; }
+  .bucket-empty { flex-wrap: wrap; }
+  .dashboard-grid { gap: 20px; }
 }
 </style>
