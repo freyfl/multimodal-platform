@@ -1,0 +1,56 @@
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.crt
+*.p12
+*.pfx
+
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+venv/
+.venv/
+
+# Node and frontend build output
+node_modules/
+frontend/dist/
+dist/
+coverage/
+
+# Runtime and local tooling
+logs/
+*.log
+*.pid
+.dbg/
+.tools/
+.trae/
+
+# Data, backups, and release archives
+data/
+exports/
+dumps/
+backups/
+*.sql
+*.sqlite
+*.sqlite3
+*.db
+*.tar
+*.tar.gz
+*.tgz
+*.zip
+
+# Generated drafts and editor metadata
+draft_*_folder/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+*~

@@ -1,0 +1,38 @@
+# FastAPI 核心
+fastapi>=0.109.0,<1.0.0
+uvicorn[standard]>=0.24.0,<1.0.0
+python-multipart>=0.0.6,<0.1.0
+
+# 数据库
+sqlalchemy>=2.0.0,<3.0.0
+aiomysql>=0.2.0,<1.0.0
+PyMySQL>=1.1.0,<2.0.0
+cryptography>=41.0.0,<42.0.0
+greenlet>=3.0.0,<4.0.0
+
+# 认证
+python-jose[cryptography]>=3.3.0,<4.0.0
+passlib[bcrypt]>=1.7.4,<2.0.0
+# Passlib 1.7.4 与 bcrypt 5 的后端自检不兼容。
+bcrypt==4.0.1
+
+# 火山引擎 SDK；方舟直接使用 httpx，不依赖模型 SDK。
+tos>=2.8.0,<3.0.0
+pymilvus>=2.4.0,<2.7.0
+
+# 数据验证
+pydantic>=2.0.0,<3.0.0
+pydantic-settings>=2.0.0,<3.0.0
+
+# 数值计算
+numpy>=1.24.0,<2.0.0
+
+# 标注图片解码、EXIF 转正和等比缩放；FFmpeg/FFprobe 由宿主机安装。
+Pillow>=10.4.0,<12.0.0
+
+# 工具
+python-dotenv>=1.0.0,<2.0.0
+aiofiles>=23.0.0,<24.0.0
+
+# HTTP 客户端
+httpx>=0.25.0,<1.0.0
