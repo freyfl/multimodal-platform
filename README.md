@@ -61,6 +61,32 @@ bash deploy/infra.sh down # 可选：停止基础设施，不删除数据卷
 
 前端默认 `http://<ECS>:3000`，后端仅监听 `127.0.0.1:8000`；前端静态服务代理 `/api/`。MySQL `3306`、Milvus `19530/9091` 和后端端口只绑定本机；生产入口应配置 HTTPS 并限制访问来源。
 
+### 本地开发
+
+本地开发不走发布脚本，而是直接运行热更新的 Vite 与 Uvicorn；基础设施仍复用 `deploy/infra.sh`。
+
+```bash
+# 1. 复制模板并填写 JWT_SECRET_KEY、DEFAULT_ADMIN_PASSWORD、MYSQL_PASSWORD、
+#    INFRA_* 三个值，以及两个位于仓库之外、权限 0700 的 ANNOTATION_*_DIR
+cp backend/.env.example backend/.env
+
+# 2. Python 3.11 虚拟环境与依赖（含离线测试依赖）
+python3.11 -m venv backend/venv
+backend/venv/bin/pip install -r backend/requirements-test.txt
+
+# 3. 前端依赖
+(cd frontend && npm ci)
+
+# 4. 本机 MySQL / etcd / MinIO / Milvus
+bash deploy/infra.sh up
+
+# 5. 后端（127.0.0.1:8000）与前端开发服务器（默认 3000，/api 代理到后端）
+(cd backend && APP_ENV_FILE="$PWD/.env" ./venv/bin/python -m uvicorn app.main:app --host 127.0.0.1 --port 8000)
+(cd frontend && npm run dev)
+```
+
+离线测试：`backend/venv/bin/python -m pytest -c backend/pytest.ini backend/tests`、`(cd frontend && npm test && npm run type-check)`、`backend/venv/bin/python -m unittest deploy/test_infrastructure.py`。后端测试不读取 `backend/.env`，也不访问网络。
+
 ## 配置入口
 
 | 配置族 | 关键字段 |
