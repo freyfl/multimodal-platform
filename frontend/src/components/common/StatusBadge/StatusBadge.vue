@@ -37,14 +37,15 @@ const displayText = computed(() => props.text || statusLabels[props.status] || p
 .status-badge {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 3px 10px;
-  border-radius: 4px;
+  gap: 7px;
+  padding: 3px 10px 3px 8px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-body);
-  font-size: var(--text-xs, 11px);
+  font-size: var(--text-xs);
   font-weight: 500;
-  letter-spacing: 0.2px;
-  transition: all 0.2s ease;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  transition: background var(--transition-default), color var(--transition-default);
 }
 
 .status-dot {
@@ -55,67 +56,67 @@ const displayText = computed(() => props.text || statusLabels[props.status] || p
   display: inline-block;
 }
 
-/* Completed = tag-gray in design */
+/* Completed */
 .status-completed {
-  background: var(--gray-100, #f1f5f9);
-  color: var(--gray-600, #475569);
+  background: var(--mint-soft);
+  color: var(--mint-ink);
 }
 .status-completed .status-dot {
-  background: #94a3b8;
+  background: var(--mint-deep);
 }
 
-/* Running = tag-green in design */
+/* Running */
 .status-running {
-  background: #d1fae5;
-  color: #059669;
+  background: var(--color-primary-bg);
+  color: var(--color-primary-dark);
 }
 .status-running .status-dot {
-  background: #10b981;
-  box-shadow: 0 0 0 2px rgba(16,185,129,0.2);
-  animation: dot-pulse 2s infinite;
+  background: var(--color-primary);
+  box-shadow: 0 0 0 2px var(--color-primary-ring);
+  animation: dot-pulse 1.8s ease-in-out infinite;
 }
 
-/* Failed = tag-red in design */
+/* Failed */
 .status-failed {
-  background: #fee2e2;
-  color: #dc2626;
+  background: var(--color-error-light);
+  color: var(--color-error);
 }
 .status-failed .status-dot {
-  background: #ef4444;
+  background: var(--color-error);
 }
 
-/* Cancelled = tag-gray in design */
+/* Cancelled / idle */
 .status-cancelled,
 .status-not_started,
 .status-skipped {
-  background: var(--gray-100, #f1f5f9);
-  color: var(--gray-600, #475569);
+  background: var(--gray-100);
+  color: var(--gray-600);
 }
 .status-cancelled .status-dot,
 .status-not_started .status-dot,
 .status-skipped .status-dot {
-  background: var(--gray-300, #cbd5e1);
+  background: var(--gray-300);
 }
 
-/* Pending = tag-orange in design */
+/* Pending */
 .status-pending {
-  background: #ffedd5;
-  color: #ea580c;
+  background: var(--color-warning-light);
+  color: var(--color-warning);
 }
 .status-pending .status-dot {
-  background: #f97316;
+  background: var(--color-warning);
 }
 
 .status-partial {
-  background: #fef3c7;
-  color: #92400e;
+  background: #fbf0d6;
+  color: #8a5a0b;
 }
 .status-partial .status-dot {
-  background: #d97706;
+  background: #c7861a;
 }
 
 @keyframes dot-pulse {
   0%, 100% { opacity: 1; }
-  50% { opacity: 0.5; }
+  50% { opacity: 0.45; }
 }
 </style>

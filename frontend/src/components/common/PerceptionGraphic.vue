@@ -3,7 +3,7 @@
     <defs>
       <linearGradient id="pg-scan" x1="0" x2="1" y1="0" y2="0">
         <stop offset="0" stop-color="currentColor" stop-opacity="0"/>
-        <stop offset=".5" stop-color="currentColor" stop-opacity=".55"/>
+        <stop offset=".5" stop-color="currentColor" stop-opacity=".22"/>
         <stop offset="1" stop-color="currentColor" stop-opacity="0"/>
       </linearGradient>
       <clipPath id="pg-field"><rect x="20" y="25" width="400" height="175"/></clipPath>
@@ -13,7 +13,7 @@
       <path d="M30 200L160 25M105 200L190 25M180 200L220 25M255 200L250 25M330 200L280 25M405 200L310 25"/>
     </g>
     <g class="scan-beam" clip-path="url(#pg-field)">
-      <rect x="20" y="25" width="60" height="175" fill="url(#pg-scan)"/>
+      <rect x="20" y="25" width="36" height="175" fill="url(#pg-scan)"/>
     </g>
     <g class="object-box" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round">
       <path class="draw" pathLength="1" d="M136 96L202 110V172L136 158ZM136 96L165 74L231 88L202 110M202 172L231 150V88M165 74V136L231 150M165 136L136 158"/>
@@ -65,11 +65,11 @@ withDefaults(defineProps<{ animated?: boolean }>(), { animated: true })
   to { transform: scale(1); opacity: 1; }
 }
 @keyframes scanLoop {
-  0% { transform: translateX(-60px); opacity: 0; }
-  10% { opacity: 1; }
-  70% { opacity: 1; }
-  80% { transform: translateX(400px); opacity: 0; }
-  100% { transform: translateX(400px); opacity: 0; }
+  0% { transform: translateX(-40px); opacity: 0; }
+  12% { opacity: 1; }
+  68% { opacity: 1; }
+  80% { transform: translateX(404px); opacity: 0; }
+  100% { transform: translateX(404px); opacity: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

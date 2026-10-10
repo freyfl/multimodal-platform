@@ -353,7 +353,7 @@ onMounted(() => {
 
 .option-icon.tag-icon {
   background: #d1fae5;
-  color: #10b981;
+  color: var(--color-success);
 }
 
 .option-content {

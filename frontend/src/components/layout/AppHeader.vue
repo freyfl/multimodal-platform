@@ -34,7 +34,7 @@
               <span style="margin-left: 8px;">修改密码</span>
             </a-menu-item>
             <a-menu-divider />
-            <a-menu-item key="logout" style="color: #ef4444;">
+            <a-menu-item key="logout" class="logout-item">
               <LogoutOutlined />
               <span style="margin-left: 8px;">退出登录</span>
             </a-menu-item>
@@ -275,6 +275,8 @@ async function handleChangePassword() {
 .user-chevron { font-size: 9px; color: var(--gray-500); transition: transform var(--duration-normal) var(--ease-out); }
 .user-trigger[aria-expanded="true"] .user-chevron { transform: rotate(180deg); }
 .mobile-menu { display: none; }
+:global(.ant-dropdown-menu-item.logout-item) { color: var(--color-error) !important; }
+:global(.ant-dropdown-menu-item.logout-item:hover) { background: var(--color-error-light) !important; }
 @media (max-width: 960px) {
   .mobile-menu { display: inline-flex; margin-left: -8px; }
 }

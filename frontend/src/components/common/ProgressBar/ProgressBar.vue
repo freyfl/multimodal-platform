@@ -53,13 +53,13 @@ const colorClass = computed(() => `progress-color-${props.color}`)
 
 /* Color variants */
 .progress-color-blue .progress-fill {
-  background: linear-gradient(90deg, var(--color-primary, #0064ff), var(--color-primary-light, #4080ff));
+  background: var(--color-primary);
 }
 .progress-color-green .progress-fill {
-  background: linear-gradient(90deg, #10b981, #34d399);
+  background: var(--color-success);
 }
 .progress-color-orange .progress-fill {
-  background: linear-gradient(90deg, #f97316, #fb923c);
+  background: var(--color-warning);
 }
 
 .progress-shimmer {

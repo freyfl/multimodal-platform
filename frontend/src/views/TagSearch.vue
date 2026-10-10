@@ -610,7 +610,7 @@ onBeforeUnmount(() => {
 }
 
 .clear-btn:hover {
-  color: #ef4444;
+  color: var(--color-error);
 }
 
 /* 检索按钮 */
