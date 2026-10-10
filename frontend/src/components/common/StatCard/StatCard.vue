@@ -1,10 +1,16 @@
 <template>
-  <div class="stat-card" :class="colorClass">
+  <component
+    :is="to ? RouterLink : 'div'"
+    class="stat-card"
+    :class="[colorClass, { 'is-action': !!to }]"
+    v-bind="to ? { to } : {}"
+  >
     <div class="stat-card-body">
       <div class="stat-content">
         <div class="stat-label">
           <span v-if="index" class="stat-index">{{ index }}</span>
           {{ title }}
+          <ArrowRightOutlined v-if="to" class="stat-go" aria-hidden="true" />
         </div>
         <div class="stat-value" :class="{ 'is-placeholder': !isNumeric }">
           <span v-if="isNumeric" class="stat-digits" aria-hidden="true">{{ displayValue }}</span>
@@ -20,11 +26,13 @@
         <slot name="icon" />
       </div>
     </div>
-  </div>
+  </component>
 </template>
 
 <script setup lang="ts">
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
+import { RouterLink, type RouteLocationRaw } from 'vue-router'
+import { ArrowRightOutlined } from '@ant-design/icons-vue'
 
 interface Props {
   title: string
@@ -34,6 +42,8 @@ interface Props {
   color?: string
   /** Optional mono index shown before the label, e.g. "01". */
   index?: string
+  /** When set, the card is a link instead of a static tile. */
+  to?: RouteLocationRaw
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -97,9 +107,32 @@ const trendIcon = computed(() => {
   box-shadow: var(--shadow);
   position: relative;
   overflow: hidden;
-  transition: box-shadow var(--duration-normal) var(--ease-default), border-color var(--transition-default);
+  transition: box-shadow var(--duration-normal) var(--ease-default), border-color var(--transition-default), background var(--transition-default);
 }
 .stat-card:hover { border-color: var(--color-border-hover); }
+.stat-card.is-action {
+  display: block;
+  color: inherit;
+  cursor: pointer;
+  text-decoration: none;
+}
+.stat-card.is-action:hover {
+  color: inherit;
+  background: var(--gray-50);
+}
+.stat-card.is-action:active { background: var(--gray-100); }
+.stat-card.is-action:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: -3px;
+  z-index: 1;
+}
+.stat-go {
+  align-self: center;
+  color: var(--color-accent);
+  font-size: 11px;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+.stat-card.is-action:hover .stat-go { transform: translateX(3px); }
 
 .stat-card-body {
   position: relative;
