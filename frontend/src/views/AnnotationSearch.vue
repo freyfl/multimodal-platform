@@ -1,6 +1,6 @@
 <template>
   <div class="annotation-search">
-    <PageHeader eyebrow="MULTIMODAL / ANNOTATIONS" title="标注查询" subtitle="按文件名检索图片与视频抽样标注；3D 投影为模型估计" />
+    <PageHeader eyebrow="多模态工作台 / 标注" title="标注查询" subtitle="按文件名检索图片与视频抽样标注；3D 投影为模型估计" />
     <section v-if="scopeId" class="scope-banner" data-testid="annotation-scope">
       <strong>标签结果集范围：{{ scope?.total ?? '未知' }} 条（创建时）</strong>
       <p v-if="scope">{{ scope.source.logic ?? 'AND' }}：
@@ -283,9 +283,9 @@ onBeforeUnmount(() => {
   align-items: center;
   margin: 0;
   color: var(--gray-500);
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
 }
 select {
   margin-left: 10px;
@@ -312,9 +312,9 @@ th, td { padding: 12px 14px; border-bottom: 1px solid var(--color-border-subtle)
 th {
   background: var(--gray-50);
   color: var(--gray-500);
-  font: 500 10px/1.3 var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   white-space: nowrap;
 }
 tbody tr { transition: background var(--transition-default); }

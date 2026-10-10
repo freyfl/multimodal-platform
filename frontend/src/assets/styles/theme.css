@@ -33,9 +33,8 @@ code, pre, .mono {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font: 500 10px/1 var(--font-mono);
-  letter-spacing: var(--tracking-eyebrow);
-  text-transform: uppercase;
+  font: 500 11px/1 var(--font-body);
+  letter-spacing: 0.22em;
   color: var(--gray-500);
 }
 .eyebrow > span:first-child:empty {
@@ -233,9 +232,9 @@ code, pre, .mono {
 .ant-table-thead > tr > th {
   background: var(--white) !important;
   color: var(--gray-500) !important;
-  font: 500 10px/1.2 var(--font-mono) !important;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.14em;
   border-bottom: 1px solid var(--gray-200) !important;
   padding-block: 12px !important;
 }

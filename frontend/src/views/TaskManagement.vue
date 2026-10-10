@@ -1,6 +1,6 @@
 <template>
   <div class="task-management-page">
-    <PageHeader eyebrow="MULTIMODAL / TASKS" title="任务管理" subtitle="管理数据处理、标注、检索任务，点击行可展开数据预览">
+    <PageHeader eyebrow="多模态工作台 / 任务" title="任务管理" subtitle="管理数据处理、标注、检索任务，点击行可展开数据预览">
       <template #extra>
         <a-button @click="handleRefresh" :loading="importStore.isLoading">
           <template #icon><ReloadOutlined /></template>
@@ -815,7 +815,6 @@ onMounted(async () => {
   color: var(--gray-400, #94a3b8);
   font-weight: 600;
   letter-spacing: 0.5px;
-  text-transform: uppercase;
   margin-bottom: 10px;
 }
 

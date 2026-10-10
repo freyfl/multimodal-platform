@@ -1,6 +1,6 @@
 <template>
   <div class="tag-search-page">
-    <PageHeader eyebrow="MULTIMODAL / TAG SEARCH" title="标签检索" subtitle="通过场景标签快速定位目标数据集" />
+    <PageHeader eyebrow="多模态工作台 / 标签检索" title="标签检索" subtitle="通过场景标签快速定位目标数据集" />
     <a-alert v-if="searchError" type="error" :message="searchError" show-icon />
 
     <!-- 标签选择卡片 -->
@@ -32,7 +32,7 @@
                 :key="category.name"
                 class="tag-category-group"
               >
-                <div class="category-label">{{ category.name }}</div>
+                <div class="category-label">{{ categoryNames[category.name] ?? category.name }}</div>
                 <div class="category-tags">
                   <button
                     v-for="tag in category.tags"
@@ -166,6 +166,7 @@ import { TagsOutlined, CloseOutlined, AppstoreOutlined, UnorderedListOutlined, D
 import { getTagSystem } from '@/api/tags'
 import { searchByTags } from '@/api/search'
 import { exportSearchResultsToExcel } from '@/utils/export'
+import { categoryNames } from '@/constants/tags'
 import PageHeader from '@/components/common/PageHeader/PageHeader.vue'
 import EmptyState from '@/components/common/EmptyState/EmptyState.vue'
 import SkeletonGrid from '@/components/common/SkeletonGrid/SkeletonGrid.vue'
@@ -459,7 +460,8 @@ onBeforeUnmount(() => {
 .selected-source {
   border-radius: var(--radius-xs);
   padding: 2px 7px;
-  font: 500 10px var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
   letter-spacing: 0.08em;
 }
 
@@ -492,9 +494,9 @@ onBeforeUnmount(() => {
 }
 
 .category-label {
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   color: var(--gray-400);
   min-width: 88px;
   padding-top: 8px;

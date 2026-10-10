@@ -1,6 +1,6 @@
 <template>
   <div class="text-search-page">
-    <PageHeader eyebrow="MULTIMODAL / TEXT SEARCH" title="文本检索" subtitle="使用自然语言描述场景，语义匹配目标数据" />
+    <PageHeader eyebrow="多模态工作台 / 文本检索" title="文本检索" subtitle="使用自然语言描述场景，语义匹配目标数据" />
 
     <!-- 搜索区域 -->
     <GlassCard class="search-section">
@@ -242,9 +242,9 @@ const showDetail = (item: SearchResultItem) => {
 
 .hot-label {
   color: var(--gray-500);
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   white-space: nowrap;
   margin-right: 6px;
 }

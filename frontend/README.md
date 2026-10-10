@@ -27,8 +27,10 @@ npm run build        # 产物输出到 dist/
 
 ### 版式
 
-- 标题：`Exo 2`（`--font-heading`），正文 `Noto Sans SC`，索引 / 眉题 / 表头使用 `Roboto Mono`（`--font-mono`）。
-- 每个页面头部统一使用 `PageHeader`：眉题（`MULTIMODAL / …`）→ 标题（结尾钴蓝句点）→ 副标题。
+- 界面文案一律使用中文；英文 / 等宽字体只用于数字、编号、ID、路径、版本号等机器可读内容。
+- 标题：`Exo 2`（`--font-heading`），正文 `Noto Sans SC`，编号 / 数值 / 路径使用 `Roboto Mono`（`--font-mono`）。中文小标签（眉题、表头、分类名）用正文字体 11px + 0.14–0.22em 字距，不用 `text-transform`。
+- 每个页面头部统一使用 `PageHeader`：眉题（`多模态工作台 / …`）→ 标题（结尾钴蓝句点）→ 副标题。
+- Ant Design 全局 locale 为 `zh_CN`（分页、日期、空态等内置文案均为中文）。
 - 数字使用 `font-variant-numeric: tabular-nums` 与 `--tracking-numeric`，统计卡数值滚动计数。
 
 ### 动效

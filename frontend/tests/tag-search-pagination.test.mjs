@@ -4,6 +4,7 @@ import test from 'node:test'
 import * as vue from 'vue'
 import { parse, compileScript } from 'vue/compiler-sfc'
 import ts from 'typescript'
+import { tagConstants } from './annotation-test-helpers.mjs'
 
 // Execute the real SFC setup code with API/UI boundaries replaced. This keeps
 // these regressions offline without adding a browser or a test framework.
@@ -20,6 +21,7 @@ function setupComponent(path, mocks = {}, props = {}) {
     '@ant-design/icons-vue': {},
     '@/api/tags': { getTagSystem: async () => ({ data: {} }) },
     '@/utils/media': { getMediaUrl: url => url },
+    '@/constants/tags': tagConstants,
     ...mocks,
   }
   const exports = {}

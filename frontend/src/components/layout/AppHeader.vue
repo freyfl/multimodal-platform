@@ -164,9 +164,9 @@ async function handleChangePassword() {
   display: flex;
   align-items: center;
   gap: 10px;
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
   color: var(--gray-500);
   min-width: 0;
 }

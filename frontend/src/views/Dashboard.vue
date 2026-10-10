@@ -3,7 +3,7 @@
     <!-- Page Header -->
     <div class="dashboard-header">
       <div class="dashboard-intro">
-        <div class="eyebrow"><span></span> MULTIMODAL / OVERVIEW</div>
+        <div class="eyebrow"><span></span>多模态工作台 / 概览</div>
         <h1 class="dashboard-title">数据概览<span class="title-period">.</span></h1>
         <p class="dashboard-subtitle">从每一帧出发，让感知数据清晰可见。</p>
         <div class="overview-actions">
@@ -54,7 +54,7 @@
       <!-- Data Type Distribution -->
       <GlassCard title="数据类型分布">
         <div class="distribution-intro">
-          <span class="section-index">01 / COMPOSITION</span>
+          <span class="section-index">01 / 数据构成</span>
           <p>你的多模态数据资产</p>
         </div>
         <div class="type-distribution">
@@ -566,7 +566,7 @@ onMounted(refreshOverview)
   font: 500 10px var(--font-mono);
   color: var(--mint-ink);
   background: var(--mint-soft);
-  letter-spacing: 0.12em;
+  letter-spacing: 0.1em;
 }
 
 .bucket-info-section {
@@ -589,7 +589,6 @@ onMounted(refreshOverview)
   font-size: 11px;
   font-weight: 500;
   color: var(--gray-500, #64748b);
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 
@@ -640,7 +639,6 @@ onMounted(refreshOverview)
   font-size: var(--text-xs, 11px);
   font-weight: 600;
   color: var(--gray-500, #64748b);
-  text-transform: uppercase;
   letter-spacing: 0.5px;
   border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
 }

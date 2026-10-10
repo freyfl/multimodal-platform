@@ -1,5 +1,5 @@
 <template>
-  <a-config-provider :theme="themeConfig">
+  <a-config-provider :theme="themeConfig" :locale="zhCN">
     <router-view v-if="isAuthPage" />
     <MainLayout v-else-if="authReady" />
     <div v-else class="app-loading" role="status" aria-live="polite">
@@ -12,6 +12,7 @@
 <script setup lang="ts">
 import { reactive, computed, onMounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
+import zhCN from 'ant-design-vue/es/locale/zh_CN'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useAuthStore } from '@/stores/auth'
 
@@ -80,8 +81,9 @@ body {
 }
 .app-loading-mark span { color: var(--mint-deep); }
 .app-loading-caption {
-  font: 500 10px var(--font-mono);
-  letter-spacing: var(--tracking-eyebrow);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.24em;
   color: var(--gray-500);
 }
 </style>

@@ -10,7 +10,7 @@
             <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <span class="eyebrow brand-eyebrow"><span></span>CREATE ACCOUNT</span>
+        <span class="eyebrow brand-eyebrow"><span></span>账户 / 注册</span>
         <h1 class="brand-title">创建账号<span class="title-period" aria-hidden="true">.</span></h1>
         <p class="brand-sub">开启你的多模态数据工作空间。</p>
       </div>
@@ -233,8 +233,9 @@ async function handleRegister() {
 .strength-fill.strong { background: var(--color-success); }
 
 .strength-text {
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.08em;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
   min-width: 28px;
 }
 

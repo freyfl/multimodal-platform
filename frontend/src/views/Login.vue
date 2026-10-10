@@ -10,7 +10,7 @@
             <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <span class="eyebrow brand-eyebrow"><span></span>SIGN IN</span>
+        <span class="eyebrow brand-eyebrow"><span></span>账户 / 登录</span>
         <h1 class="brand-title">欢迎回来<span class="title-period" aria-hidden="true">.</span></h1>
         <p class="brand-sub">登录，继续你的数据探索。</p>
       </div>

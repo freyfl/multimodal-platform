@@ -23,9 +23,9 @@
       <path class="draw draw-3" pathLength="1" d="M115 81V67H129M234 67H248V81M115 171V185H129M234 185H248V171"/>
     </g>
     <g fill="currentColor" class="field-labels">
-      <text x="115" y="54">PERCEPTION FIELD</text>
+      <text x="115" y="54">感知视场</text>
       <text x="264" y="166">x · y · z</text>
-      <text x="22" y="216">IMAGE / VIDEO / SEMANTICS</text>
+      <text x="22" y="216">图像 / 视频 / 语义</text>
       <circle class="anchor" cx="202" cy="110" r="3"/>
       <circle class="anchor anchor-2" cx="315" cy="93" r="2.5"/>
     </g>
@@ -41,7 +41,8 @@ withDefaults(defineProps<{ animated?: boolean }>(), { animated: true })
 .field-grid { opacity: .18; }
 .object-box { opacity: .85; }
 .frame-corners { color: var(--color-primary); }
-.field-labels { font: 8px var(--font-mono); letter-spacing: 1.5px; opacity: .75; }
+.field-labels { font: 9px var(--font-body); letter-spacing: 2px; opacity: .75; }
+.field-labels text:nth-of-type(2) { font: 8px var(--font-mono); letter-spacing: 1.5px; }
 .scan-beam { opacity: 0; }
 
 /* Entry: field fades, boxes draw themselves, labels settle, then a slow scan loops. */

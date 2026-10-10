@@ -1,6 +1,6 @@
 <template>
   <div class="data-import-page">
-    <PageHeader eyebrow="MULTIMODAL / INGEST" title="数据导入" subtitle="从对象存储（TOS）导入多模态数据" />
+    <PageHeader eyebrow="多模态工作台 / 导入" title="数据导入" subtitle="从对象存储（TOS）导入多模态数据" />
 
     <!-- TOS 导入配置区 -->
     <GlassCard class="tos-config-section">

@@ -6,7 +6,7 @@
         <span>多模态检索平台</span>
       </div>
       <div class="story-content">
-        <span class="story-kicker reveal" style="--d: 120ms">THE MULTIMODAL WORKSPACE</span>
+        <span class="story-kicker reveal" style="--d: 120ms">多模态数据工作台</span>
         <h2>
           <span class="line"><span class="line-inner" style="--d: 220ms">看见数据。</span></span>
           <span class="line"><span class="line-inner" style="--d: 340ms">理解每一帧<span class="accent">。</span></span></span>
@@ -16,8 +16,8 @@
       </div>
       <div class="story-footer reveal" style="--d: 800ms">
         <span>感知 / 理解 / 检索</span>
-        <span class="footer-coords">LAT 39.90 · LNG 116.40</span>
-        <span>AUTODRIVE</span>
+        <span class="footer-coords">图像 · 视频 · 语义</span>
+        <span>自动驾驶数据</span>
       </div>
     </section>
     <main class="auth-form-region">
@@ -82,7 +82,7 @@ import PerceptionGraphic from '@/components/common/PerceptionGraphic.vue'
 .wordmark-symbol span { color: var(--mint); }
 
 .story-content { margin: 56px 0 32px; max-width: 620px; }
-.story-kicker { display: inline-block; color: #b1c6bd; font: 500 10px var(--font-mono); letter-spacing: var(--tracking-eyebrow); }
+.story-kicker { display: inline-block; color: #b1c6bd; font-size: 11px; font-weight: 500; letter-spacing: 0.3em; }
 .story-content h2 {
   color: #edf4ef;
   font-size: clamp(38px, 4.2vw, 68px);
@@ -102,8 +102,8 @@ import PerceptionGraphic from '@/components/common/PerceptionGraphic.vue'
   display: flex;
   justify-content: space-between;
   color: #9eafac;
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.1em;
+  font-size: 11px;
+  letter-spacing: 0.2em;
   gap: 24px;
 }
 .footer-coords { opacity: .6; }
@@ -118,8 +118,8 @@ import PerceptionGraphic from '@/components/common/PerceptionGraphic.vue'
 .auth-form-stack { width: 100%; display: flex; justify-content: center; }
 .auth-caption {
   margin-top: 40px;
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.14em;
+  font-size: 11px;
+  letter-spacing: 0.18em;
   color: var(--gray-400);
   animation: fadeIn .8s var(--ease-out) .9s both;
 }

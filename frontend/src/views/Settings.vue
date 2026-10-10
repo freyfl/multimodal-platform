@@ -1,6 +1,6 @@
 <template>
   <div class="settings-page">
-    <PageHeader eyebrow="MULTIMODAL / SYSTEM" title="系统设置" subtitle="管理用户账号、角色权限和系统配置" />
+    <PageHeader eyebrow="多模态工作台 / 系统" title="系统设置" subtitle="管理用户账号、角色权限和系统配置" />
 
     <a-tabs v-model:activeKey="activeTab" class="settings-tabs">
       <!-- Tab 1: 用户管理（仅管理员） -->
@@ -1007,7 +1007,6 @@ onMounted(() => {
   color: var(--gray-500, #64748b);
   font-size: var(--text-xs, 11px);
   font-weight: 600;
-  text-transform: uppercase;
   letter-spacing: 0.5px;
   padding: 10px 16px;
 }
@@ -1088,7 +1087,6 @@ onMounted(() => {
   font-size: var(--text-xs, 11px);
   font-weight: 600;
   color: var(--gray-500, #64748b);
-  text-transform: uppercase;
   letter-spacing: 0.5px;
 }
 

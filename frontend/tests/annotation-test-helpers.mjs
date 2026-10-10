@@ -24,6 +24,7 @@ export function loadModule(path, modules = {}) {
 
 export const utils = loadModule('../src/utils/annotations.ts')
 export const contract = loadModule('../src/types/annotation.ts')
+export const tagConstants = loadModule('../src/constants/tags.ts')
 
 export function setupComponent(path, modules = {}, props = {}) {
   const cleanup = []
@@ -33,6 +34,7 @@ export function setupComponent(path, modules = {}, props = {}) {
     vue: { ...vue, onBeforeUnmount: fn => cleanup.push(fn), onMounted: fn => mounted.push(fn) },
     '@/utils/annotations': utils,
     '@/types/annotation': contract,
+    '@/constants/tags': tagConstants,
     'ant-design-vue': { message: { success() {}, error() {}, warning() {} }, Modal: { confirm() {} } },
     ...modules,
   })

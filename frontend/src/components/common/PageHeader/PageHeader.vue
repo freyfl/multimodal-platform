@@ -25,7 +25,7 @@
 interface Props {
   title?: string
   subtitle?: string
-  /** Mono uppercase label above the title, e.g. "MULTIMODAL / SEARCH". */
+  /** Mono uppercase label above the title, 例如「多模态工作台 / 检索」. */
   eyebrow?: string
   /** Appends the brand accent period after the title. */
   accent?: boolean

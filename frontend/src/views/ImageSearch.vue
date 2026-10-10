@@ -1,6 +1,6 @@
 <template>
   <div class="image-search-page">
-    <PageHeader eyebrow="MULTIMODAL / IMAGE SEARCH" title="图像检索" subtitle="上传参考图像，检索视觉相似的数据场景" />
+    <PageHeader eyebrow="多模态工作台 / 图像检索" title="图像检索" subtitle="上传参考图像，检索视觉相似的数据场景" />
     <ModelCatalogStatus />
     <a-alert v-if="searchError" type="error" :message="searchError" show-icon />
 
@@ -340,9 +340,9 @@ const showDetail = (item: SearchResultItem) => {
 .param-item label {
   display: block;
   color: var(--gray-500);
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
   margin-bottom: 10px;
 }
 

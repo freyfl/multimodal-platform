@@ -199,9 +199,9 @@ const handleClearHistory = () => {
 
 .option-label {
   color: var(--gray-500);
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
 }
 
 .mode-radio :deep(.ant-radio-button-wrapper) {
@@ -241,9 +241,9 @@ const handleClearHistory = () => {
   gap: 8px;
   margin-bottom: 10px;
   color: var(--gray-500);
-  font: 500 10px var(--font-mono);
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.14em;
 }
 
 .history-icon {

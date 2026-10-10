@@ -11,7 +11,7 @@
       </div>
       <div class="logo-text-wrap">
         <span class="logo-text">多模态检索平台</span>
-        <span class="logo-sub">MULTIMODAL RETRIEVAL</span>
+        <span class="logo-sub">感知 · 理解 · 检索</span>
       </div>
     </router-link>
 
@@ -40,7 +40,7 @@
     </nav>
     <div class="sidebar-footer">
       <span class="workspace-mark" aria-hidden="true">M<span> / </span>M</span>
-      <div class="workspace-tagline">感知 · 理解 · 检索</div>
+      <div class="workspace-tagline">多模态数据工作台</div>
       <div class="workspace-status" :data-state="statusState">
         <span class="status-dot" aria-hidden="true"></span>
         <span class="status-text">{{ statusLabel }}</span>
@@ -186,9 +186,9 @@ onMounted(() => {
 }
 
 .logo-sub {
-  font: 500 9px var(--font-mono);
+  font-size: 10px;
   color: var(--ink-text-muted);
-  letter-spacing: 0.16em;
+  letter-spacing: 0.2em;
 }
 
 /* Navigation */
@@ -307,10 +307,9 @@ onMounted(() => {
   margin-top: 14px;
   padding-top: 14px;
   border-top: 1px dashed rgba(196, 236, 207, 0.16);
-  font: 500 9px var(--font-mono);
-  letter-spacing: 0.12em;
+  font-size: 10px;
+  letter-spacing: 0.14em;
   color: var(--ink-text-muted);
-  text-transform: uppercase;
 }
 .status-dot {
   position: relative;
