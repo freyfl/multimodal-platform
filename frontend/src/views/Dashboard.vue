@@ -22,6 +22,7 @@
       <StatCard
         index="01"
         title="数据总量"
+        to="/search/annotations"
         :value="systemStore.stats?.media?.total ?? '—'"
       >
         <template #icon><DatabaseOutlined /></template>
@@ -376,12 +377,6 @@ onMounted(refreshOverview)
 }
 .stats-grid :deep(.stat-card) { border: 0; border-radius: 0; border-right: 1px solid var(--color-border); box-shadow: none; padding: 26px; }
 .stats-grid :deep(.stat-card:last-child) { border-right: 0; }
-.stats-grid :deep(.stat-card:first-child) { background: var(--ink-2); }
-.stats-grid :deep(.stat-card:first-child .stat-value) { color: #f2f6f3; }
-.stats-grid :deep(.stat-card:first-child .stat-label) { color: #b9ccc6; }
-.stats-grid :deep(.stat-card:first-child .stat-index) { color: var(--mint); opacity: .8; }
-.stats-grid :deep(.stat-card:first-child .stat-icon-wrapper) { color: var(--mint); background: rgba(196, 236, 207, 0.12); border-color: rgba(196, 236, 207, 0.22); }
-.stats-grid :deep(.stat-card:first-child:hover .stat-icon-wrapper) { background: var(--mint); color: var(--ink); }
 .stats-grid[aria-busy="true"] :deep(.stat-value) { opacity: .35; }
 /* Dashboard Grid - two column */
 .dashboard-grid {
