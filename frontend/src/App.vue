@@ -2,8 +2,9 @@
   <a-config-provider :theme="themeConfig">
     <router-view v-if="isAuthPage" />
     <MainLayout v-else-if="authReady" />
-    <div v-else class="app-loading">
-      <a-spin size="large" />
+    <div v-else class="app-loading" role="status" aria-live="polite">
+      <span class="app-loading-mark" aria-hidden="true">M<span> / </span>M</span>
+      <span class="app-loading-caption">正在进入工作空间</span>
     </div>
   </a-config-provider>
 </template>
@@ -25,12 +26,23 @@ const isAuthPage = computed(() => {
 const themeConfig = reactive({
   token: {
     colorPrimary: '#245bea',
+    colorInfo: '#245bea',
+    colorSuccess: '#1f9d6b',
+    colorWarning: '#d97a12',
+    colorError: '#d6453c',
+    colorLink: '#245bea',
     borderRadius: 8,
+    borderRadiusLG: 12,
     controlHeight: 38,
     colorText: '#26363d',
     colorTextSecondary: '#5f7075',
-    colorBorder: '#dfe4e1',
-    fontFamily: "'Noto Sans SC', 'PingFang SC', sans-serif",
+    colorTextTertiary: '#7f8e92',
+    colorBorder: '#dde3df',
+    colorBorderSecondary: '#eaeeea',
+    colorBgLayout: '#f4f6f3',
+    fontFamily: "'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif",
+    motionEaseInOut: 'cubic-bezier(0.65, 0, 0.35, 1)',
+    motionEaseOut: 'cubic-bezier(0.16, 1, 0.3, 1)',
   },
 })
 
@@ -54,8 +66,22 @@ body {
 .app-loading {
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  gap: 18px;
   align-items: center;
   justify-content: center;
-  background: #f8fafc;
+  background: var(--color-bg-page);
+}
+.app-loading-mark {
+  font: 600 34px var(--font-heading);
+  letter-spacing: -2px;
+  color: var(--ink);
+  animation: pulse 1.6s ease-in-out infinite;
+}
+.app-loading-mark span { color: var(--mint-deep); }
+.app-loading-caption {
+  font: 500 10px var(--font-mono);
+  letter-spacing: var(--tracking-eyebrow);
+  color: var(--gray-500);
 }
 </style>

@@ -19,9 +19,10 @@ html, body {
   background: var(--color-bg-page);
   color: var(--color-text);
   font-size: var(--text-base);
-  line-height: 1.5;
+  line-height: var(--leading-body);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
 }
 
 button {
@@ -29,29 +30,37 @@ button {
   border: none;
   background: none;
   font-family: inherit;
+  color: inherit;
 }
 
 input, textarea, select {
   font-family: inherit;
 }
 
+img, svg, video { display: block; max-width: 100%; }
+
 :where(a, button, input, textarea, select, [tabindex]):focus-visible {
   outline: 2px solid var(--color-primary);
-  outline-offset: 4px;
+  outline-offset: 3px;
+  border-radius: var(--radius-xs);
 }
 
 button:disabled { cursor: not-allowed; }
 
-.navigation-drawer .ant-drawer-header { background: #172126; border-bottom-color: #303b40; }
-.navigation-drawer .ant-drawer-title,
+/* Mobile navigation drawer inherits the ink sidebar. */
+.navigation-drawer .ant-drawer-header { background: var(--ink); border-bottom-color: var(--ink-line); padding: 18px 20px; }
+.navigation-drawer .ant-drawer-title { color: #edf4ef; font-size: 12px; font-weight: 500; letter-spacing: 0.08em; }
 .navigation-drawer .ant-drawer-close { color: #edf4ef; }
-.navigation-drawer .sidebar { width: 100%; min-width: 0; }
+.navigation-drawer .ant-drawer-body { background: var(--ink); }
+.navigation-drawer .sidebar { width: 100%; min-width: 0; border-right: 0; }
 .navigation-drawer .sidebar-logo { display: none; }
 
 /* Motion is reserved for entry and actionable elements. */
-.dashboard-header { animation: fadeInUp .45s ease both; }
-.dashboard-page > .stats-grid { animation: fadeInUp .45s .06s ease both; }
-.dashboard-grid { animation: fadeInUp .45s .12s ease both; }
+.dashboard-header { animation: fadeInUp .6s var(--ease-out) both; }
+.dashboard-page > .stats-grid { animation: fadeInUp .6s .08s var(--ease-out) both; }
+.dashboard-grid { animation: fadeInUp .6s .16s var(--ease-out) both; }
+.dashboard-page > .bucket-card { animation: fadeInUp .6s .22s var(--ease-out) both; }
+.dashboard-page > .dirs-card { animation: fadeInUp .6s .28s var(--ease-out) both; }
 
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
@@ -64,8 +73,8 @@ button:disabled { cursor: not-allowed; }
 
 /* ===== 滚动条样式 ===== */
 ::-webkit-scrollbar {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
@@ -74,17 +83,20 @@ button:disabled { cursor: not-allowed; }
 
 ::-webkit-scrollbar-thumb {
   background: var(--gray-300);
-  border-radius: 3px;
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
 }
 
 ::-webkit-scrollbar-thumb:hover {
   background: var(--gray-400);
+  background-clip: padding-box;
 }
 
 /* ===== 选中文字样式 ===== */
 ::selection {
-  background: rgba(0, 100, 255, 0.15);
-  color: var(--gray-900);
+  background: var(--mint);
+  color: var(--ink);
 }
 
 /* ===== 链接样式 ===== */
@@ -101,23 +113,23 @@ a:hover {
 /* ===== 页面过渡动画 ===== */
 .page-enter-active,
 .page-leave-active {
-  transition: all 0.3s var(--ease-out);
+  transition: opacity var(--duration-slow) var(--ease-out), transform var(--duration-slow) var(--ease-out);
 }
 
 .page-enter-from {
   opacity: 0;
-  transform: translateY(12px);
+  transform: translateY(14px);
 }
 
 .page-leave-to {
   opacity: 0;
-  transform: translateY(-8px);
+  transform: translateY(-6px);
 }
 
 /* ===== 淡入淡出 ===== */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s var(--ease-default);
+  transition: opacity var(--duration-normal) var(--ease-default);
 }
 
 .fade-enter-from,

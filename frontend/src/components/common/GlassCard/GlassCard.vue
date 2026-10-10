@@ -38,19 +38,19 @@ withDefaults(defineProps<Props>(), {
 <style scoped>
 .glass-card {
   position: relative;
-  background: var(--color-bg-elevated, #ffffff);
-  border: 1px solid var(--color-border, #e2e8f0);
-  border-radius: var(--radius-lg, 12px);
-  box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06));
+  background: var(--color-bg-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
   overflow: hidden;
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: border-color var(--transition-default), box-shadow var(--duration-normal) var(--ease-default), transform var(--duration-normal) var(--ease-out);
   min-width: 0;
 }
 
 .glass-card-hoverable:hover {
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
-  border-color: var(--color-border-hover, #cbd5e1);
+  border-color: var(--color-border-hover);
 }
 
 /* Variant: flat - no shadow */
@@ -58,7 +58,7 @@ withDefaults(defineProps<Props>(), {
   box-shadow: none;
 }
 .glass-card-flat.glass-card-hoverable:hover {
-  box-shadow: var(--shadow, 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.06));
+  box-shadow: var(--shadow);
 }
 
 /* Variant: bordered - stronger border */
@@ -68,19 +68,23 @@ withDefaults(defineProps<Props>(), {
 
 .glass-card-header {
   padding: 18px 24px;
-  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-bottom: 1px solid var(--color-border-subtle);
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
   flex-wrap: wrap;
+  min-height: 60px;
 }
 
-.glass-card-title {
-  font-family: var(--font-heading);
-  font-size: var(--text-base, 14px);
+.glass-card-title,
+.glass-card-header :deep(.glass-card-title),
+.glass-card-header :deep(.card-title) {
+  font-family: var(--font-body);
+  font-size: var(--text-base);
   font-weight: 600;
-  color: var(--color-text-bright, #0f172a);
+  color: var(--color-text-bright);
+  letter-spacing: 0;
 }
 
 .glass-card-body {
@@ -89,11 +93,11 @@ withDefaults(defineProps<Props>(), {
 
 .glass-card-footer {
   padding: 14px 20px;
-  border-top: 1px solid var(--color-border-subtle, #f1f5f9);
-  background: var(--color-bg-glass-strong, #f8fafc);
+  border-top: 1px solid var(--color-border-subtle);
+  background: var(--color-bg-glass-strong);
 }
 @media (max-width: 600px) {
-  .glass-card-header { padding: 16px 20px; }
-  .glass-card-body { padding: var(--card-padding, 20px); }
+  .glass-card-header { padding: 14px 18px; min-height: 0; }
+  .glass-card-body { padding: var(--card-padding, 18px); }
 }
 </style>

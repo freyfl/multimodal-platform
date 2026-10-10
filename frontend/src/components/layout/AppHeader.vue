@@ -1,21 +1,21 @@
 <template>
-  <header class="app-header">
+  <header class="app-header" :class="{ scrolled }">
     <div class="header-left">
       <button ref="menuButton" class="btn-icon mobile-menu" aria-label="打开导航菜单" :aria-expanded="menuOpen" @click="$emit('toggle-menu')">
         <MenuOutlined />
       </button>
-      <div class="header-breadcrumb">
+      <nav class="header-breadcrumb" aria-label="当前位置">
         <span class="breadcrumb-root">工作空间</span>
-        <i class="breadcrumb-sep">
-          <RightOutlined style="font-size: 9px" />
-        </i>
-        <span class="breadcrumb-current">{{ pageTitle }}</span>
-      </div>
+        <i class="breadcrumb-sep" aria-hidden="true">/</i>
+        <transition name="crumb" mode="out-in">
+          <span :key="pageTitle" class="breadcrumb-current">{{ pageTitle }}</span>
+        </transition>
+      </nav>
     </div>
     <div class="header-actions">
-      <button class="btn btn-primary" @click="$router.push('/import')">
+      <button v-if="route.path !== '/import'" class="btn btn-primary" @click="$router.push('/import')">
         <PlusOutlined />
-        导入数据
+        <span class="btn-label">导入数据</span>
       </button>
       <a-dropdown :trigger="['click']">
         <button class="user-trigger" aria-label="账户菜单" aria-haspopup="menu">
@@ -70,7 +70,7 @@
 <script setup lang="ts">
 import { computed, reactive, ref } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { MenuOutlined, DownOutlined, PlusOutlined, RightOutlined, UserOutlined, LockOutlined, LogoutOutlined } from '@ant-design/icons-vue'
+import { MenuOutlined, DownOutlined, PlusOutlined, UserOutlined, LockOutlined, LogoutOutlined } from '@ant-design/icons-vue'
 import { message } from 'ant-design-vue'
 import { useAuthStore } from '@/stores/auth'
 import { authApi } from '@/api/auth'
@@ -78,7 +78,7 @@ import { authApi } from '@/api/auth'
 const route = useRoute()
 const router = useRouter()
 const authStore = useAuthStore()
-defineProps<{ menuOpen: boolean }>()
+defineProps<{ menuOpen: boolean; scrolled?: boolean }>()
 defineEmits<{ 'toggle-menu': [] }>()
 const menuButton = ref<HTMLButtonElement | null>(null)
 defineExpose({ focusMenu: () => menuButton.value?.focus() })
@@ -132,52 +132,67 @@ async function handleChangePassword() {
 
 <style scoped>
 .app-header {
+  position: sticky;
+  top: 0;
+  z-index: var(--z-sticky);
   height: var(--header-h);
   min-height: var(--header-h);
-  background: var(--color-bg-page);
-  border-bottom: 1px solid var(--color-border);
+  background: color-mix(in srgb, var(--color-bg-page) 82%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.2);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom: 1px solid transparent;
   display: flex;
   align-items: center;
-  padding: 0 clamp(24px, 3vw, 52px);
+  padding: 0 var(--page-gutter);
   gap: 16px;
   flex-shrink: 0;
+  transition: border-color var(--duration-normal) var(--ease-default), box-shadow var(--duration-normal) var(--ease-default);
+}
+.app-header.scrolled {
+  border-bottom-color: var(--color-border);
+  box-shadow: 0 8px 24px -16px rgba(23, 33, 38, 0.18);
 }
 
 .header-left {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 0;
 }
 
 .header-breadcrumb {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 12px;
+  gap: 10px;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
   color: var(--gray-500);
+  min-width: 0;
 }
 
 .breadcrumb-sep {
-  display: flex;
-  align-items: center;
   font-style: normal;
+  color: var(--gray-300);
 }
 
 .breadcrumb-current {
-  color: #1e293b;
-  font-weight: 600;
+  display: inline-block;
+  font: 600 13px var(--font-body);
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--gray-900);
+  white-space: nowrap;
 }
+.crumb-enter-active, .crumb-leave-active { transition: opacity var(--duration-normal) var(--ease-out), transform var(--duration-normal) var(--ease-out); }
+.crumb-enter-from { opacity: 0; transform: translateY(6px); }
+.crumb-leave-to { opacity: 0; transform: translateY(-6px); }
 
 .header-actions {
   margin-left: auto;
   display: flex;
   align-items: center;
-  gap: 20px;
-}
-
-.notif-wrap {
-  position: relative;
-  display: inline-flex;
+  gap: 14px;
 }
 
 .btn-icon {
@@ -187,28 +202,18 @@ async function handleChangePassword() {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  border-radius: 6px;
-  color: #64748b;
+  border-radius: var(--radius);
+  color: var(--gray-600);
   background: transparent;
   border: none;
   cursor: pointer;
-  transition: all 0.15s;
+  transition: background var(--transition-default), color var(--transition-default);
   font-size: 16px;
 }
 
 .btn-icon:hover {
-  background: #f1f5f9;
-  color: #334155;
-}
-
-.notif-dot {
-  width: 8px;
-  height: 8px;
-  background: #ef4444;
-  border-radius: 50%;
-  position: absolute;
-  top: 6px;
-  right: 6px;
+  background: var(--gray-100);
+  color: var(--gray-900);
 }
 
 .btn {
@@ -217,10 +222,9 @@ async function handleChangePassword() {
   gap: 6px;
   min-height: 38px;
   padding: 8px 16px;
-  border-radius: 6px;
+  border-radius: var(--radius);
   font-size: 13px;
   font-weight: 500;
-  transition: all 0.15s;
   cursor: pointer;
   border: none;
 }
@@ -228,59 +232,59 @@ async function handleChangePassword() {
 .btn-primary {
   background: var(--color-primary);
   color: white;
-  box-shadow: none;
+  box-shadow: var(--shadow-primary);
 }
-
-.btn-primary:hover {
-  background: var(--color-primary-dark);
-  box-shadow: 0 2px 8px rgba(0, 100, 255, 0.4);
-  transform: translateY(-1px);
-}
+.btn-primary .anticon { transition: transform var(--duration-normal) var(--ease-spring); }
+.btn-primary:hover .anticon { transform: rotate(90deg); }
 
 .user-trigger {
   display: flex;
   align-items: center;
-  gap: 8px;
-  padding: 4px 8px;
-  border-radius: 8px;
+  gap: 10px;
+  padding: 4px 10px 4px 4px;
+  border-radius: var(--radius-pill);
   cursor: pointer;
-  transition: background 0.15s;
+  border: 1px solid transparent;
+  transition: background var(--transition-default), border-color var(--transition-default);
 }
 
-.user-trigger:hover {
-  background: #f1f5f9;
+.user-trigger:hover,
+.user-trigger[aria-expanded="true"] {
+  background: var(--white);
+  border-color: var(--color-border);
 }
 
 .header-avatar {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: #dfe7e4;
+  background: var(--ink);
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #34483d;
-  font-size: 11px;
-  font-weight: 600;
+  color: var(--mint);
+  font: 600 11px var(--font-heading);
   flex-shrink: 0;
 }
 
 .header-username {
   font-size: 13px;
   font-weight: 500;
-  color: #334155;
+  color: var(--gray-800);
 }
-.user-chevron { font-size: 9px; color: var(--gray-500); }
+.user-chevron { font-size: 9px; color: var(--gray-500); transition: transform var(--duration-normal) var(--ease-out); }
+.user-trigger[aria-expanded="true"] .user-chevron { transform: rotate(180deg); }
 .mobile-menu { display: none; }
 @media (max-width: 960px) {
-  .mobile-menu { display: inline-flex; }
+  .mobile-menu { display: inline-flex; margin-left: -8px; }
 }
 @media (max-width: 600px) {
-  .app-header { padding: 0 12px; gap: 8px; }
+  .app-header { padding: 0 12px; gap: 8px; height: 60px; min-height: 60px; }
   .header-actions { gap: 8px; }
   .header-username, .user-chevron, .breadcrumb-root, .breadcrumb-sep { display: none; }
-  .btn { padding: 8px 12px; }
-  .user-trigger { padding: 4px; }
+  .btn { padding: 0; width: 38px; justify-content: center; }
+  .btn-label { display: none; }
+  .user-trigger { padding: 2px; }
   .header-breadcrumb { white-space: nowrap; }
 }
 </style>

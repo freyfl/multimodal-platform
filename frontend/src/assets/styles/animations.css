@@ -2,7 +2,7 @@
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(16px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -22,7 +22,7 @@
 @keyframes scaleIn {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.96);
   }
   to {
     opacity: 1;
@@ -90,18 +90,44 @@
   }
 }
 
+/* Reveal text by sliding it up out of an overflow-hidden mask. */
+@keyframes maskReveal {
+  from { transform: translateY(110%); }
+  to { transform: translateY(0); }
+}
+
+/* Draw an SVG stroke using pathLength="1". */
+@keyframes drawStroke {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+/* Thin scan beam travelling across a perception field. */
+@keyframes scanSweep {
+  0% { transform: translateX(-12%); opacity: 0; }
+  8% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateX(112%); opacity: 0; }
+}
+
+/* Live status pulse (ring expanding outwards). */
+@keyframes statusPing {
+  0% { transform: scale(1); opacity: .55; }
+  100% { transform: scale(2.6); opacity: 0; }
+}
+
 /* ===== Utility Classes ===== */
 .fade-in-up {
-  animation: fadeInUp 0.5s ease both;
+  animation: fadeInUp .6s var(--ease-out) both;
 }
 
 .scale-in {
-  animation: scaleIn 0.3s ease both;
+  animation: scaleIn .4s var(--ease-out) both;
 }
 
 .stagger-item {
-  animation: fadeInUp 0.4s ease both;
-  animation-delay: calc(var(--i, 0) * 50ms);
+  animation: fadeInUp .55s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 45ms);
 }
 
 .animate-pulse {
@@ -109,19 +135,19 @@
 }
 
 .animate-slide-down {
-  animation: slideDown 0.2s ease both;
+  animation: slideDown .3s var(--ease-out) both;
 }
 
 .animate-slide-up {
-  animation: slideUp 0.2s ease both;
+  animation: slideUp .3s var(--ease-out) both;
 }
 
 .animate-fade-in {
-  animation: fadeIn 0.3s ease both;
+  animation: fadeIn .35s ease both;
 }
 
 .animate-scale-in {
-  animation: scaleIn 0.2s ease both;
+  animation: scaleIn .3s var(--ease-out) both;
 }
 
 /* Shimmer placeholder background */

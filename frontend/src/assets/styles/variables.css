@@ -1,10 +1,12 @@
 /* ===== 设计系统 CSS 变量 ===== */
-/* Perception workspace · graphite / paper / cobalt */
+/* Perception workspace · ink / paper / mint / cobalt
+   Rule: cobalt is the only interactive colour; mint is identity (marks, active
+   state on ink, highlights); everything else stays neutral. */
 :root {
   /* ── 字体 ── */
-  --font-body: 'Noto Sans SC', 'PingFang SC', sans-serif;
-  --font-heading: 'Exo 2', 'Noto Sans SC', sans-serif;
-  --font-mono: 'Roboto Mono', monospace;
+  --font-body: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-heading: 'Exo 2', 'Noto Sans SC', 'PingFang SC', sans-serif;
+  --font-mono: 'Roboto Mono', 'SF Mono', Menlo, monospace;
 
   /* ── 字号 ── */
   --text-2xs: 10px;
@@ -17,53 +19,76 @@
   --text-xl: 20px;
   --text-2xl: 24px;
   --text-3xl: 28px;
+  --text-display: clamp(30px, 2.6vw + 14px, 42px);
 
-  /* ── 主色 Ali Blue ── */
+  /* ── 字距 / 行高 ── */
+  --tracking-display: -0.015em;
+  --tracking-numeric: -0.035em;
+  --tracking-eyebrow: 0.18em;
+  --leading-tight: 1.15;
+  --leading-body: 1.6;
+
+  /* ── 墨色 Ink（结构、品牌深色面）── */
+  --ink: #172126;
+  --ink-2: #22343c;
+  --ink-3: #2b3d44;
+  --ink-line: #303b40;
+  --ink-text: #bbc6ca;
+  --ink-text-muted: #8d9ea4;
+
+  /* ── 薄荷 Mint（品牌识别色）── */
+  --mint: #c4eccf;
+  --mint-soft: #e3f2e7;
+  --mint-deep: #2f6a4e;
+  --mint-ink: #1f4a37;
+
+  /* ── 主色 Cobalt（唯一交互色）── */
   --color-primary: #245bea;
-  --color-primary-light: #4080ff;
-  --color-primary-bg: #e8f0ff;
-  --color-primary-dark: #0052d9;
-  --color-primary-glow: rgba(0, 100, 255, 0.3);
+  --color-primary-light: #4f7ff0;
+  --color-primary-bg: #e9efff;
+  --color-primary-dark: #1a47c2;
+  --color-primary-glow: rgba(36, 91, 234, 0.28);
+  --color-primary-ring: rgba(36, 91, 234, 0.14);
 
   /* ── Blue 色阶（兼容原参考） ── */
-  --blue-50: #eff6ff;
-  --blue-100: #dbeafe;
-  --blue-200: #bfdbfe;
-  --blue-400: #60a5fa;
-  --blue-500: #3b82f6;
-  --blue-600: #2563eb;
-  --blue-700: #1d4ed8;
-  --blue-800: #1e40af;
-  --blue-900: #1e3a8a;
-  --ali-blue: #0064ff;
-  --ali-blue-light: #e8f0ff;
-  --ali-blue-mid: #4080ff;
+  --blue-50: #eef3ff;
+  --blue-100: #dbe5ff;
+  --blue-200: #bfd0fb;
+  --blue-400: #5c86f2;
+  --blue-500: #3d6cee;
+  --blue-600: #245bea;
+  --blue-700: #1a47c2;
+  --blue-800: #163a9c;
+  --blue-900: #142f7a;
+  --ali-blue: #245bea;
+  --ali-blue-light: #e9efff;
+  --ali-blue-mid: #4f7ff0;
 
-  /* ── 功能色 ── */
-  --color-success: #10b981;
-  --color-success-light: #d1fae5;
-  --color-warning: #f97316;
-  --color-warning-light: #ffedd5;
-  --color-error: #ef4444;
-  --color-error-light: #fee2e2;
-  --color-info: #0064ff;
-  --color-purple: #8b5cf6;
-  --color-purple-light: #ede9fe;
+  /* ── 功能色（降饱和，与墨色协调）── */
+  --color-success: #1f9d6b;
+  --color-success-light: #dcf3e8;
+  --color-warning: #d97a12;
+  --color-warning-light: #fdeedb;
+  --color-error: #d6453c;
+  --color-error-light: #fbe3e1;
+  --color-info: #245bea;
+  --color-purple: #6b5fd6;
+  --color-purple-light: #ebe8fb;
 
   /* ── 强调色（向后兼容） ── */
-  --color-accent: #4080ff;
-  --color-accent-light: #0064ff;
-  --color-accent-glow: rgba(0, 100, 255, 0.2);
+  --color-accent: #4f7ff0;
+  --color-accent-light: #245bea;
+  --color-accent-glow: rgba(36, 91, 234, 0.18);
 
-  /* ── 中性灰度 ── */
-  --gray-50: #f5f6f4;
-  --gray-100: #edf0ed;
-  --gray-200: #dfe4e1;
-  --gray-300: #cbd5e1;
-  --gray-400: #77868a;
+  /* ── 中性灰度（带一点墨绿倾向，与 ink 同系）── */
+  --gray-50: #f4f6f3;
+  --gray-100: #eaeeea;
+  --gray-200: #dde3df;
+  --gray-300: #c6cfca;
+  --gray-400: #7f8e92;
   --gray-500: #5f7075;
-  --gray-600: #475569;
-  --gray-700: #334155;
+  --gray-600: #46575c;
+  --gray-700: #334247;
   --gray-800: #26363d;
   --gray-900: #172126;
   --white: #ffffff;
@@ -76,7 +101,7 @@
   --color-text-muted: var(--gray-300);
 
   /* ── 背景色 ── */
-  --color-bg-deep: var(--gray-50);
+  --color-bg-deep: #eef1ee;
   --color-bg-page: var(--gray-50);
   --color-bg-elevated: var(--white);
   --color-bg-glass: var(--white);
@@ -90,13 +115,14 @@
   --color-border-active: var(--color-primary);
   --color-border-subtle: var(--gray-100);
 
-  /* ── 阴影（与设计稿对齐） ── */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow: 0 2px 4px rgba(23, 33, 38, 0.025);
-  --shadow-md: 0 6px 20px rgba(23, 33, 38, 0.06);
-  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.08), 0 4px 6px rgba(0, 0, 0, 0.05);
-  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.08), 0 10px 10px rgba(0, 0, 0, 0.04);
+  /* ── 阴影（墨色着色的多层柔和阴影）── */
+  --shadow-sm: 0 1px 2px rgba(23, 33, 38, 0.05);
+  --shadow: 0 1px 2px rgba(23, 33, 38, 0.04), 0 2px 8px rgba(23, 33, 38, 0.03);
+  --shadow-md: 0 2px 4px rgba(23, 33, 38, 0.04), 0 14px 32px -10px rgba(23, 33, 38, 0.12);
+  --shadow-lg: 0 4px 10px rgba(23, 33, 38, 0.05), 0 28px 56px -14px rgba(23, 33, 38, 0.18);
+  --shadow-xl: 0 8px 16px rgba(23, 33, 38, 0.06), 0 40px 80px -20px rgba(23, 33, 38, 0.24);
   --shadow-2xl: var(--shadow-xl);
+  --shadow-primary: 0 1px 2px rgba(26, 71, 194, 0.25), 0 8px 20px -6px rgba(36, 91, 234, 0.45);
 
   /* 向后兼容旧阴影名 */
   --glass-shadow: var(--shadow);
@@ -106,7 +132,7 @@
   --glass-bg: var(--white);
   --glow-primary: var(--shadow);
   --glow-accent: var(--shadow);
-  --glow-success: 0 0 8px rgba(16, 185, 129, 0.2);
+  --glow-success: 0 0 8px rgba(31, 157, 107, 0.2);
   --glow-text: none;
 
   /* ── 圆角 ── */
@@ -114,10 +140,13 @@
   --radius-sm: 6px;
   --radius: 8px;
   --radius-md: 10px;
-  --radius-lg: 10px;
+  --radius-lg: 12px;
   --radius-xl: 16px;
   --radius-2xl: 20px;
   --radius-pill: 999px;
+  /* 品牌标记用的不对称圆角 */
+  --radius-mark: 10px 2px 10px 2px;
+  --radius-mark-lg: 18px 4px 18px 4px;
 
   /* ── 间距（4px 倍数递进） ── */
   --spacing-xs: 4px;
@@ -132,13 +161,15 @@
   --spacing-4xl: 64px;
 
   /* ── 过渡 ── */
-  --duration-fast: 150ms;
-  --duration-normal: 200ms;
-  --duration-slow: 300ms;
-  --ease-default: ease;
-  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-out: cubic-bezier(0, 0, 0.2, 1);
-  --transition-default: 0.15s ease;
+  --duration-fast: 160ms;
+  --duration-normal: 240ms;
+  --duration-slow: 420ms;
+  --duration-reveal: 700ms;
+  --ease-default: cubic-bezier(0.2, 0, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --ease-spring: cubic-bezier(0.34, 1.4, 0.64, 1);
+  --transition-default: var(--duration-fast) var(--ease-default);
 
   /* ── 层级 ── */
   --z-base: 1;
@@ -150,4 +181,6 @@
   /* ── 布局 ── */
   --sidebar-w: 240px;
   --header-h: 72px;
+  --content-max: 1480px;
+  --page-gutter: clamp(24px, 3.4vw, 64px);
 }
