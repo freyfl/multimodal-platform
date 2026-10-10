@@ -71,8 +71,17 @@
               ></div>
             </div>
           </div>
-          <div v-if="typeDistribution.length === 0" class="dist-empty">
-            {{ systemStore.isLoading ? '正在读取数据…' : systemStore.statsError ? '统计暂不可用' : '导入图片或视频，开始积累数据资产' }}
+          <div v-if="typeDistribution.length === 0" class="dist-ghost" :class="{ loading: systemStore.isLoading }">
+            <div v-for="ghost in ['图片', '视频']" :key="ghost" class="dist-item is-ghost" aria-hidden="true">
+              <div class="dist-header">
+                <span class="dist-label">{{ ghost }}</span>
+                <span class="dist-value">— 个 (0%)</span>
+              </div>
+              <div class="dist-bar-track"><div class="dist-bar-fill"></div></div>
+            </div>
+            <p class="dist-empty">
+              {{ systemStore.isLoading ? '正在读取数据…' : systemStore.statsError ? '统计暂不可用' : '导入图片或视频，开始积累数据资产' }}
+            </p>
           </div>
         </div>
       </GlassCard>
@@ -443,10 +452,22 @@ onMounted(refreshOverview)
   background: var(--color-warning);
 }
 
+.dist-ghost { display: flex; flex-direction: column; gap: 20px; }
+.dist-item.is-ghost .dist-label { color: var(--gray-400); }
+.dist-item.is-ghost .dist-value { color: var(--gray-300); }
+.dist-item.is-ghost .dist-bar-track {
+  background: repeating-linear-gradient(90deg, var(--gray-200) 0 6px, transparent 6px 12px);
+  opacity: .9;
+}
+.dist-ghost.loading .dist-bar-track {
+  background: linear-gradient(90deg, var(--gray-100) 25%, var(--gray-200) 50%, var(--gray-100) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+}
 .dist-empty {
-  text-align: center;
-  padding: 30px 0;
-  color: var(--gray-400, #9ca3af);
+  text-align: left;
+  margin: 6px 0 0;
+  color: var(--gray-500);
   font-size: 13px;
 }
 
@@ -474,11 +495,13 @@ onMounted(refreshOverview)
   transition: opacity 0.15s;
 }
 .view-all-link:hover {
-  opacity: 0.8;
+  color: var(--color-primary-dark);
 }
 .link-icon {
   font-size: 10px;
+  transition: transform var(--duration-normal) var(--ease-out);
 }
+.view-all-link:hover .link-icon { transform: translateX(3px); }
 
 /* Recent task list */
 .recent-task-list {
@@ -492,8 +515,10 @@ onMounted(refreshOverview)
   align-items: center;
   justify-content: space-between;
   padding: 12px 0;
-  border-bottom: 1px solid var(--color-border-subtle, #f1f5f9);
+  border-bottom: 1px solid var(--color-border-subtle);
+  transition: transform var(--duration-normal) var(--ease-out);
 }
+.recent-task-item:hover { transform: translateX(4px); }
 .recent-task-item:last-child {
   border-bottom: none;
   padding-bottom: 0;

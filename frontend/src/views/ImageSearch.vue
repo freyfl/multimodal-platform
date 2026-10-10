@@ -234,7 +234,7 @@ const showDetail = (item: SearchResultItem) => {
 }
 
 .title-icon {
-  color: var(--color-primary);
+  color: var(--mint-deep);
 }
 
 .upload-dragger {
@@ -247,19 +247,20 @@ const showDetail = (item: SearchResultItem) => {
 }
 
 .upload-dragger :deep(.ant-upload-drag) {
-  border: 2px dashed var(--gray-300) !important;
+  border: 1px dashed var(--gray-300) !important;
   border-radius: var(--radius-lg) !important;
   background: var(--gray-50) !important;
-  transition: all 0.2s ease !important;
+  transition: border-color var(--transition-default), background var(--duration-normal) var(--ease-default) !important;
 }
 
 .upload-dragger :deep(.ant-upload-drag:hover) {
-  border-color: var(--color-primary) !important;
-  background: var(--color-primary-bg) !important;
+  border-color: var(--ink) !important;
+  background: var(--white) !important;
 }
 
 .upload-dragger :deep(.ant-upload-drag.ant-upload-drag-hover) {
   border-color: var(--color-primary) !important;
+  border-style: solid !important;
   background: var(--color-primary-bg) !important;
 }
 
@@ -285,19 +286,23 @@ const showDetail = (item: SearchResultItem) => {
   justify-content: center;
   width: 56px;
   height: 56px;
-  background: var(--color-primary-bg);
-  border-radius: var(--radius-lg);
+  background: var(--white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-mark-lg);
   margin-bottom: 14px;
-  transition: all 0.2s ease;
+  box-shadow: var(--shadow);
+  transition: background var(--transition-default), transform var(--duration-slow) var(--ease-spring), border-color var(--transition-default);
 }
 
 .upload-dragger:hover .upload-icon-wrap {
-  background: rgba(0, 100, 255, 0.12);
+  background: var(--mint-soft);
+  border-color: transparent;
+  transform: translateY(-3px) rotate(-4deg);
 }
 
 .upload-icon {
-  font-size: 24px;
-  color: var(--color-primary);
+  font-size: 22px;
+  color: var(--mint-deep);
 }
 
 .upload-text {
@@ -334,10 +339,11 @@ const showDetail = (item: SearchResultItem) => {
 
 .param-item label {
   display: block;
-  color: var(--gray-600);
-  font-size: 12px;
-  font-weight: 500;
-  margin-bottom: 8px;
+  color: var(--gray-500);
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
 }
 
 .param-control {
@@ -352,11 +358,12 @@ const showDetail = (item: SearchResultItem) => {
 
 .param-value {
   font-family: var(--font-mono);
-  color: var(--color-primary);
-  font-weight: 600;
+  color: var(--gray-900);
+  font-weight: 500;
   font-size: 13px;
   min-width: 40px;
   text-align: right;
+  font-variant-numeric: tabular-nums;
 }
 
 .search-btn {
