@@ -1,6 +1,6 @@
 <template>
   <div class="image-search-page">
-    <PageHeader title="图像检索" subtitle="上传参考图像，检索视觉相似的数据场景" />
+    <PageHeader eyebrow="MULTIMODAL / IMAGE SEARCH" title="图像检索" subtitle="上传参考图像，检索视觉相似的数据场景" />
     <ModelCatalogStatus />
     <a-alert v-if="searchError" type="error" :message="searchError" show-icon />
 

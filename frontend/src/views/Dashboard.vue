@@ -20,30 +20,30 @@
     <!-- Stats Grid -->
     <div class="stats-grid" :aria-busy="systemStore.isLoading">
       <StatCard
+        index="01"
         title="数据总量"
         :value="systemStore.stats?.media?.total ?? '—'"
-        color="blue"
       >
         <template #icon><DatabaseOutlined /></template>
       </StatCard>
       <StatCard
+        index="02"
         title="图片数量"
         :value="systemStore.stats?.media?.images ?? '—'"
-        color="green"
       >
         <template #icon><FileImageOutlined /></template>
       </StatCard>
       <StatCard
+        index="03"
         title="视频数量"
         :value="systemStore.stats?.media?.videos ?? '—'"
-        color="orange"
       >
         <template #icon><VideoCameraOutlined /></template>
       </StatCard>
       <StatCard
+        index="04"
         title="总搜索次数"
         :value="systemStore.stats?.performance?.total_searches ?? '—'"
-        color="purple"
       >
         <template #icon><SearchOutlined /></template>
       </StatCard>
@@ -314,38 +314,45 @@ onMounted(refreshOverview)
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 210px;
-  padding: 0 0 16px;
-  gap: 24px;
+  min-height: 200px;
+  padding: 4px 0 8px;
+  gap: 32px;
 }
 
 .dashboard-title {
-  font-size: clamp(30px, 3vw, 42px);
+  font-size: var(--text-display);
   font-weight: 700;
-  color: var(--gray-900, #0f172a);
-  margin: 12px 0 12px;
-  letter-spacing: -1.5px;
+  color: var(--gray-900);
+  margin: 14px 0 12px;
+  letter-spacing: -0.01em;
+  line-height: 1.1;
 }
 
 .dashboard-subtitle {
-  font-size: 13px;
-  color: var(--gray-500, #64748b);
+  font-size: 14px;
+  color: var(--gray-500);
   margin: 0;
 }
-.title-period { color: var(--color-primary); margin-left: 4px; }
-.eyebrow { display: flex; align-items: center; gap: 8px; font: 10px var(--font-mono); letter-spacing: 1.7px; color: var(--gray-500); }
-.eyebrow > span { width: 6px; height: 6px; background: var(--color-primary); }
+.title-period { color: var(--color-primary); margin-left: 2px; }
 .overview-graphic { width: min(40%, 410px); flex-shrink: 0; }
-.overview-actions { display: flex; gap: 24px; align-items: center; margin-top: 24px; font-size: 12px; }
-.overview-link { display: inline-flex; gap: 12px; align-items: center; font-weight: 500; }
-.overview-link .anticon { transition: transform .2s; }
+.overview-actions { display: flex; gap: 28px; align-items: center; margin-top: 26px; font-size: 13px; }
+.overview-link { display: inline-flex; gap: 10px; align-items: center; font-weight: 500; }
+.overview-link .anticon { transition: transform var(--duration-normal) var(--ease-out); }
 .overview-link:hover .anticon { transform: translateX(4px); }
-.refresh-overview { display: inline-flex; gap: 6px; align-items: center; color: var(--gray-500); padding: 6px 0; }
+.refresh-overview {
+  display: inline-flex; gap: 8px; align-items: center;
+  color: var(--gray-500); padding: 6px 0;
+  transition: color var(--transition-default);
+}
+.refresh-overview:hover { color: var(--gray-900); }
+.refresh-overview .anticon { transition: transform var(--duration-slow) var(--ease-out); }
+.refresh-overview:hover:not(:disabled) .anticon { transform: rotate(180deg); }
 .refresh-overview:disabled { opacity: .6; cursor: wait; }
 .distribution-intro { margin-bottom: 28px; }
-.section-index { font: 10px var(--font-mono); letter-spacing: 1px; color: var(--gray-500); }
-.distribution-intro p { font-size: 21px; letter-spacing: -.5px; margin: 8px 0 0; color: var(--color-text-bright); }
-.empty-action-link { font-size: 12px; }
+.distribution-intro p { font-size: 21px; letter-spacing: -0.01em; margin: 10px 0 0; color: var(--color-text-bright); font-weight: 500; }
+.empty-action-link { font-size: 12px; display: inline-flex; gap: 6px; align-items: center; }
+.empty-action-link .anticon { transition: transform var(--duration-normal) var(--ease-out); }
+.empty-action-link:hover .anticon { transform: translateX(3px); }
 
 /* Stats Grid */
 .stats-grid {
@@ -353,16 +360,19 @@ onMounted(refreshOverview)
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
   border: 1px solid var(--color-border);
-  border-radius: 10px;
+  border-radius: var(--radius-lg);
   overflow: hidden;
   background: white;
+  box-shadow: var(--shadow);
 }
 .stats-grid :deep(.stat-card) { border: 0; border-radius: 0; border-right: 1px solid var(--color-border); box-shadow: none; padding: 26px; }
 .stats-grid :deep(.stat-card:last-child) { border-right: 0; }
-.stats-grid :deep(.stat-card:first-child) { background: #22343c; }
+.stats-grid :deep(.stat-card:first-child) { background: var(--ink-2); }
 .stats-grid :deep(.stat-card:first-child .stat-value) { color: #f2f6f3; }
 .stats-grid :deep(.stat-card:first-child .stat-label) { color: #b9ccc6; }
-.stats-grid :deep(.stat-card:first-child .stat-icon-wrapper) { color: #c4eccf; background: #344b4e; }
+.stats-grid :deep(.stat-card:first-child .stat-index) { color: var(--mint); opacity: .8; }
+.stats-grid :deep(.stat-card:first-child .stat-icon-wrapper) { color: var(--mint); background: rgba(196, 236, 207, 0.12); border-color: rgba(196, 236, 207, 0.22); }
+.stats-grid :deep(.stat-card:first-child:hover .stat-icon-wrapper) { background: var(--mint); color: var(--ink); }
 .stats-grid[aria-busy="true"] :deep(.stat-value) { opacity: .35; }
 /* Dashboard Grid - two column */
 .dashboard-grid {
@@ -409,28 +419,28 @@ onMounted(refreshOverview)
 }
 
 .dist-bar-track {
-  height: 8px;
-  background: var(--gray-100, #f1f5f9);
-  border-radius: 4px;
+  height: 6px;
+  background: var(--gray-100);
+  border-radius: 3px;
   overflow: hidden;
 }
 
 .dist-bar-fill {
   height: 100%;
-  border-radius: 4px;
-  transition: width 0.6s ease;
+  border-radius: 3px;
+  transition: width .9s var(--ease-out);
 }
 
 .bar-blue {
-  background: var(--color-primary);
+  background: var(--ink);
 }
 
 .bar-green {
-  background: #6f9986;
+  background: var(--mint-deep);
 }
 
 .bar-orange {
-  background: linear-gradient(90deg, #f97316, #fb923c);
+  background: var(--color-warning);
 }
 
 .dist-empty {
@@ -526,13 +536,12 @@ onMounted(refreshOverview)
 .bucket-badge {
   display: inline-flex;
   align-items: center;
-  padding: 2px 10px;
-  border-radius: 4px;
-  font-size: 11px;
-  font-weight: 600;
-  color: var(--color-primary, #0064ff);
-  background: rgba(0, 100, 255, 0.08);
-  letter-spacing: 0.5px;
+  padding: 3px 10px;
+  border-radius: var(--radius-xs);
+  font: 500 10px var(--font-mono);
+  color: var(--mint-ink);
+  background: var(--mint-soft);
+  letter-spacing: 0.12em;
 }
 
 .bucket-info-section {
@@ -621,7 +630,7 @@ onMounted(refreshOverview)
 }
 
 .dir-task-id {
-  font-family: 'SF Mono', 'Fira Code', monospace;
+  font-family: var(--font-mono);
   font-size: 12px;
   color: var(--gray-600, #475569);
 }

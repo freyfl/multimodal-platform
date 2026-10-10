@@ -305,8 +305,8 @@ const handleReset = () => {
 }
 
 .tos-input :deep(.ant-input:focus) {
-  border-color: var(--color-primary, #0064ff);
-  box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.08);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px var(--color-primary-ring);
 }
 
 .validate-btn {
@@ -343,26 +343,36 @@ const handleReset = () => {
   position: relative;
   display: flex;
   align-items: center;
-  gap: 12px;
-  padding: 14px;
-  background: var(--gray-50, #f8fafc);
-  border: 1px solid var(--color-border, #e2e8f0);
-  border-radius: var(--radius-lg, 12px);
+  gap: 14px;
+  padding: 16px;
+  background: var(--white);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition:
+    border-color var(--transition-default),
+    background-color var(--duration-normal) var(--ease-default),
+    box-shadow var(--duration-normal) var(--ease-default),
+    transform var(--duration-normal) var(--ease-out);
   overflow: hidden;
 }
 
 .option-card:hover {
-  border-color: var(--color-border-hover, #cbd5e1);
-  box-shadow: var(--shadow-sm);
+  border-color: var(--gray-400);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
 }
+.option-card:active { transform: translateY(0); }
 
 .option-card.active {
-  background: var(--color-primary-bg, #e8f0ff);
-  border-color: var(--color-primary, #0064ff);
-  box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.08);
+  background: var(--white);
+  border-color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink), var(--shadow);
 }
+.option-card:not(.active) {
+  background: var(--gray-50);
+}
+.option-card:not(.active) .option-title { color: var(--gray-600); }
 
 .option-icon {
   width: 40px;
@@ -370,10 +380,18 @@ const handleReset = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary-bg, #e8f0ff);
-  border-radius: var(--radius-md, 10px);
-  color: var(--color-primary, #0064ff);
-  font-size: 18px;
+  background: var(--gray-50);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-mark);
+  color: var(--gray-600);
+  font-size: 17px;
+  flex-shrink: 0;
+  transition: background var(--transition-default), color var(--transition-default), border-color var(--transition-default);
+}
+.option-card.active .option-icon {
+  background: var(--mint-soft);
+  border-color: transparent;
+  color: var(--mint-deep);
 }
 
 .option-content {
@@ -394,25 +412,27 @@ const handleReset = () => {
 }
 
 .option-check {
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary, #0064ff);
+  background: var(--ink);
   border-radius: 50%;
-  color: #ffffff;
-  font-size: 12px;
+  color: var(--mint);
+  font-size: 11px;
+  flex-shrink: 0;
+  animation: scaleIn .35s var(--ease-spring) both;
 }
 
 .model-config {
   display: flex;
   flex-direction: column;
   gap: 12px;
-  padding: 16px;
-  background: var(--gray-50, #f8fafc);
-  border: 1px solid var(--color-border, #e2e8f0);
-  border-radius: var(--radius-lg, 12px);
+  padding: 18px;
+  background: var(--gray-50);
+  border: 1px solid var(--color-border-subtle);
+  border-radius: var(--radius-lg);
 }
 
 .config-row {
@@ -422,9 +442,9 @@ const handleReset = () => {
 }
 
 .config-label {
-  min-width: 70px;
-  color: var(--gray-600, #475569);
-  font-size: var(--text-caption, 13px);
+  min-width: 76px;
+  color: var(--gray-600);
+  font-size: var(--text-caption);
   font-weight: 500;
 }
 

@@ -1,6 +1,6 @@
 <template>
   <div class="task-management-page">
-    <PageHeader title="任务管理" subtitle="管理数据处理、标注、检索任务，点击行可展开数据预览">
+    <PageHeader eyebrow="MULTIMODAL / TASKS" title="任务管理" subtitle="管理数据处理、标注、检索任务，点击行可展开数据预览">
       <template #extra>
         <a-button @click="handleRefresh" :loading="importStore.isLoading">
           <template #icon><ReloadOutlined /></template>
@@ -47,6 +47,7 @@
           :loading="importStore.isLoading"
           :pagination="false"
           :expand-column-width="48"
+          :scroll="{ x: 1310 }"
           v-model:expandedRowKeys="expandedRowKeys"
           :custom-row="customRow"
           class="task-table"
@@ -646,14 +647,9 @@ onMounted(async () => {
 }
 
 .task-table :deep(.ant-table-thead > tr > th) {
-  background: var(--gray-50, #f8fafc);
-  border-bottom: 1px solid var(--color-border, #e2e8f0);
-  color: var(--gray-500, #64748b);
-  font-size: var(--text-xs, 11px);
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  padding: 10px 16px;
+  background: var(--gray-50);
+  border-bottom: 1px solid var(--color-border);
+  padding: 12px 16px;
 }
 
 .task-table :deep(.ant-table-tbody > tr > td) {

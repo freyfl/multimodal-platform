@@ -1,6 +1,6 @@
 <template>
   <div class="tag-search-page">
-    <PageHeader title="标签检索" subtitle="通过场景标签快速定位目标数据集" />
+    <PageHeader eyebrow="MULTIMODAL / TAG SEARCH" title="标签检索" subtitle="通过场景标签快速定位目标数据集" />
     <a-alert v-if="searchError" type="error" :message="searchError" show-icon />
 
     <!-- 标签选择卡片 -->
@@ -382,9 +382,9 @@ onBeforeUnmount(() => {
 /* 卡片通用 */
 .search-card {
   background: #fff;
-  border-radius: 12px;
-  border: 1px solid var(--color-border, #e2e8f0);
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow);
 }
 
 .search-card-header {
@@ -411,17 +411,17 @@ onBeforeUnmount(() => {
 }
 
 .card-title-icon {
-  color: var(--color-primary, #0064ff);
+  color: var(--mint-deep);
   font-size: 15px;
 }
 
 .selected-badge {
-  font-size: 12px;
-  color: var(--color-primary, #0064ff);
-  background: var(--color-primary-bg, #e8f0ff);
-  padding: 2px 10px;
-  border-radius: 10px;
-  font-weight: 500;
+  font: 500 11px var(--font-mono);
+  color: var(--mint);
+  background: var(--ink);
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
+  line-height: 18px;
 }
 
 .catalog-actions {
@@ -444,8 +444,8 @@ onBeforeUnmount(() => {
 }
 
 .source-group + .source-group {
-  padding-top: 16px;
-  border-top: 1px solid #f1f5f9;
+  padding-top: 18px;
+  border-top: 1px dashed var(--gray-200);
 }
 
 .source-header {
@@ -457,20 +457,20 @@ onBeforeUnmount(() => {
 
 .source-badge,
 .selected-source {
-  border-radius: 4px;
-  padding: 1px 6px;
-  font-size: 10px;
-  font-weight: 600;
+  border-radius: var(--radius-xs);
+  padding: 2px 7px;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.08em;
 }
 
 .source-default {
-  color: #1d4ed8;
-  background: #dbeafe;
+  color: var(--mint-ink);
+  background: var(--mint-soft);
 }
 
 .source-custom {
-  color: #7e22ce;
-  background: #f3e8ff;
+  color: var(--color-purple);
+  background: var(--color-purple-light);
 }
 
 .source-count {
@@ -492,11 +492,12 @@ onBeforeUnmount(() => {
 }
 
 .category-label {
-  font-size: 11px;
-  color: var(--gray-400, #94a3b8);
-  font-weight: 500;
-  min-width: 72px;
-  padding-top: 4px;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--gray-400);
+  min-width: 88px;
+  padding-top: 8px;
   flex-shrink: 0;
 }
 
@@ -518,35 +519,42 @@ onBeforeUnmount(() => {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  padding: 6px 10px;
+  padding: 6px 11px;
   max-width: 100%;
   overflow-wrap: anywhere;
   text-align: left;
-  border-radius: 14px;
+  border-radius: var(--radius-pill);
   font-size: 12px;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--gray-200);
   background: #fff;
-  color: #475569;
+  color: var(--gray-600);
   cursor: pointer;
-  transition: all 0.15s;
+  transition:
+    border-color var(--transition-default),
+    background-color var(--transition-default),
+    color var(--transition-default),
+    transform var(--duration-normal) var(--ease-spring),
+    box-shadow var(--duration-normal) var(--ease-default);
   user-select: none;
 }
 
 .tag-chip:hover {
-  border-color: #0064ff;
-  background: #e8f0ff;
-  color: #0064ff;
+  border-color: var(--ink);
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
+.tag-chip:active { transform: translateY(0) scale(.96); }
 
 .tag-chip.active {
-  border-color: #0064ff;
-  background: #e8f0ff;
-  color: #0064ff;
+  border-color: var(--ink);
+  background: var(--ink);
+  color: var(--mint);
 }
 
 .selected-source {
   color: currentColor;
-  background: rgba(0, 100, 255, 0.1);
+  background: rgba(196, 236, 207, 0.16);
 }
 
 .tag-remove {

@@ -2,7 +2,7 @@
   <AuthLayout>
     <div class="login-card">
       <!-- Brand -->
-      <div class="brand">
+      <div class="brand stagger-item" style="--i: 2">
         <div class="brand-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
             <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -10,12 +10,13 @@
             <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1 class="brand-title">欢迎回来</h1>
+        <span class="eyebrow brand-eyebrow"><span></span>SIGN IN</span>
+        <h1 class="brand-title">欢迎回来<span class="title-period" aria-hidden="true">.</span></h1>
         <p class="brand-sub">登录，继续你的数据探索。</p>
       </div>
 
       <!-- Form -->
-      <a-form layout="vertical" :model="form" @finish="handleLogin">
+      <a-form layout="vertical" :model="form" class="stagger-item" style="--i: 5" @finish="handleLogin">
         <a-form-item label="用户名" name="username">
           <a-input
             v-model:value="form.username"
@@ -48,12 +49,13 @@
           class="login-btn"
           html-type="submit"
         >
-          进入工作空间
+          <span>进入工作空间</span>
+          <ArrowRightOutlined class="login-arrow" />
         </a-button>
 
       </a-form>
 
-      <div class="form-footer">
+      <div class="form-footer stagger-item" style="--i: 8">
         还没有账号？
         <router-link to="/register" class="link">立即注册</router-link>
       </div>
@@ -65,7 +67,7 @@
 import { reactive, ref } from 'vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
-import { UserOutlined, LockOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LockOutlined, ArrowRightOutlined } from '@ant-design/icons-vue'
 import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/layout/AuthLayout.vue'
 
@@ -99,15 +101,6 @@ async function handleLogin() {
 </script>
 
 <style scoped>
-.login-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--gray-50, #f8fafc);
-  padding: 24px;
-}
-
 .login-card {
   width: 100%;
   max-width: 400px;
@@ -116,79 +109,76 @@ async function handleLogin() {
 
 .brand {
   text-align: left;
-  margin-bottom: 36px;
+  margin-bottom: 34px;
 }
 
 .brand-icon {
   width: 48px;
   height: 48px;
-  background: #e3ebe5;
-  border-radius: 10px 2px 10px 2px;
-  display: inline-flex;
+  background: var(--mint);
+  border-radius: var(--radius-mark);
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: #345748;
-  margin-bottom: 16px;
+  color: var(--ink);
+  margin-bottom: 22px;
 }
+.brand-eyebrow { display: flex; margin-bottom: 12px; }
 
 .brand-title {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
-  color: var(--gray-900, #0f172a);
+  color: var(--gray-900);
   margin: 0 0 10px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.01em;
 }
+.title-period { color: var(--color-primary); margin-left: 2px; }
 
 .brand-sub {
   font-size: 13px;
-  color: var(--gray-400, #94a3b8);
-  letter-spacing: 0;
+  color: var(--gray-500);
   margin: 0;
 }
 
-.form-extra {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
-}
-
 .login-btn {
-  height: 46px;
+  height: 48px;
   font-size: 15px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: var(--radius-md) !important;
+  margin-top: 6px;
+  gap: 10px !important;
 }
-
-.demo-hint {
-  text-align: center;
-  margin-top: 14px;
-  font-size: 13px;
-  color: #e53e3e;
-  font-weight: 500;
-}
-
-.demo-hint strong {
-  font-weight: 700;
-}
+.login-arrow { font-size: 13px; transition: transform var(--duration-normal) var(--ease-out); }
+.login-btn:hover .login-arrow { transform: translateX(4px); }
 
 .form-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 13px;
-  color: var(--gray-500, #64748b);
+  color: var(--gray-500);
 }
 
 .form-footer .link {
-  color: var(--color-primary, #0064ff);
+  color: var(--color-primary);
   font-weight: 500;
   text-decoration: none;
+  position: relative;
 }
+.form-footer .link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+.form-footer .link:hover::after { transform: scaleX(1); transform-origin: left; }
 
-.form-footer .link:hover {
-  text-decoration: underline;
-}
-.login-card :deep(.ant-input-affix-wrapper) { padding: 11px 12px; }
-.login-card :deep(.ant-input-prefix) { margin-right: 10px; color: var(--gray-500); }
-.login-card :deep(.ant-form-item-label) { padding-bottom: 10px; }
+.login-card :deep(.ant-input-affix-wrapper) { padding: 11px 14px; border-radius: var(--radius-md) !important; }
+.login-card :deep(.ant-input-prefix) { margin-right: 10px; color: var(--gray-400); transition: color var(--transition-default); }
+.login-card :deep(.ant-input-affix-wrapper-focused .ant-input-prefix) { color: var(--color-primary); }
+.login-card :deep(.ant-form-item-label) { padding-bottom: 8px; }
+.login-card :deep(.ant-form-item) { margin-bottom: 20px; }
 </style>

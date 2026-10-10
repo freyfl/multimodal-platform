@@ -1,6 +1,6 @@
 <template>
   <div class="text-search-page">
-    <PageHeader title="文本检索" subtitle="使用自然语言描述场景，语义匹配目标数据" />
+    <PageHeader eyebrow="MULTIMODAL / TEXT SEARCH" title="文本检索" subtitle="使用自然语言描述场景，语义匹配目标数据" />
 
     <!-- 搜索区域 -->
     <GlassCard class="search-section">
@@ -198,13 +198,14 @@ const showDetail = (item: SearchResultItem) => {
 }
 
 .results-count {
-  background: var(--color-primary-bg);
-  color: var(--color-primary);
-  padding: 2px 10px;
-  border-radius: 8px;
+  background: var(--ink);
+  color: var(--mint);
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 11px;
-  font-weight: 600;
+  font-weight: 500;
+  line-height: 18px;
 }
 
 .search-time {
@@ -234,36 +235,49 @@ const showDetail = (item: SearchResultItem) => {
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
-  margin-top: 16px;
+  margin-top: 18px;
   padding-top: 16px;
-  border-top: 1px solid var(--gray-100);
+  border-top: 1px dashed var(--gray-200);
 }
 
 .hot-label {
-  color: var(--gray-400);
-  font-size: 12px;
+  color: var(--gray-500);
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
   white-space: nowrap;
-  margin-right: 4px;
+  margin-right: 6px;
 }
 
 .hot-tag {
   display: inline-flex;
   align-items: center;
-  gap: 4px;
+  gap: 6px;
   background: var(--white);
   border: 1px solid var(--gray-200);
-  color: var(--gray-600);
-  padding: 4px 10px;
-  border-radius: 20px;
+  color: var(--gray-700);
+  padding: 5px 12px 5px 10px;
+  border-radius: var(--radius-pill);
   font-size: 12px;
   font-weight: 500;
   cursor: pointer;
-  transition: all 0.15s ease;
+  transition: border-color var(--transition-default), color var(--transition-default), transform var(--duration-normal) var(--ease-spring), box-shadow var(--duration-normal) var(--ease-default);
+}
+.hot-tag::before {
+  content: '';
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--gray-300);
+  transition: background var(--transition-default), transform var(--duration-normal) var(--ease-spring);
 }
 
 .hot-tag:hover {
-  border-color: var(--color-primary);
-  color: var(--color-primary);
-  background: var(--color-primary-bg);
+  border-color: var(--ink);
+  color: var(--ink);
+  transform: translateY(-1px);
+  box-shadow: var(--shadow);
 }
+.hot-tag:hover::before { background: var(--mint-deep); transform: scale(1.4); }
+.hot-tag:active { transform: translateY(0) scale(.97); }
 </style>

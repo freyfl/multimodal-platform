@@ -1,19 +1,15 @@
 <template>
   <div class="settings-page">
-    <!-- 页面标题 -->
-    <div class="page-header">
-      <h1 class="page-title">系统设置</h1>
-      <p class="page-subtitle">管理用户账号、角色权限和系统配置</p>
-    </div>
+    <PageHeader eyebrow="MULTIMODAL / SYSTEM" title="系统设置" subtitle="管理用户账号、角色权限和系统配置" />
 
     <a-tabs v-model:activeKey="activeTab" class="settings-tabs">
       <!-- Tab 1: 用户管理（仅管理员） -->
       <a-tab-pane v-if="isAdmin" key="users" tab="用户管理">
         <!-- 统计卡片 -->
         <div class="stats-grid">
-          <StatCard title="总用户数" :value="userStats.total" color="blue" />
-          <StatCard title="管理员" :value="userStats.admins" color="purple" />
-          <StatCard title="活跃用户" :value="userStats.active" color="green" />
+          <StatCard index="01" title="总用户数" :value="userStats.total"><template #icon><TeamOutlined /></template></StatCard>
+          <StatCard index="02" title="管理员" :value="userStats.admins"><template #icon><SafetyCertificateOutlined /></template></StatCard>
+          <StatCard index="03" title="活跃用户" :value="userStats.active"><template #icon><ThunderboltOutlined /></template></StatCard>
         </div>
 
         <!-- 用户列表 -->
@@ -461,8 +457,11 @@ import {
   KeyOutlined,
   SettingOutlined,
   InfoCircleOutlined,
+  SafetyCertificateOutlined,
+  ThunderboltOutlined,
 } from '@ant-design/icons-vue'
 import GlassCard from '@/components/common/GlassCard/GlassCard.vue'
+import PageHeader from '@/components/common/PageHeader/PageHeader.vue'
 import StatCard from '@/components/common/StatCard/StatCard.vue'
 import StatusBadge from '@/components/common/StatusBadge/StatusBadge.vue'
 import TagBadge from '@/components/common/TagBadge/TagBadge.vue'
@@ -955,24 +954,6 @@ onMounted(() => {
 }
 
 /* ── Page Header ── */
-.page-header {
-  margin-bottom: 24px;
-}
-
-.page-title {
-  font-size: 28px;
-  font-weight: 700;
-  color: var(--gray-900, #0f172a);
-  margin: 0 0 10px 0;
-  letter-spacing: -.8px;
-}
-
-.page-subtitle {
-  font-size: 13px;
-  color: var(--gray-500, #64748b);
-  margin: 0;
-}
-
 /* ── Tabs ── */
 .settings-tabs :deep(.ant-tabs-nav) {
   margin-bottom: 20px;

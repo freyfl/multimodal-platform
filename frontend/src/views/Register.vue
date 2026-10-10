@@ -2,7 +2,7 @@
   <AuthLayout>
     <div class="register-card">
       <!-- Brand -->
-      <div class="brand">
+      <div class="brand stagger-item" style="--i: 2">
         <div class="brand-icon">
           <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" width="24" height="24">
             <path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/>
@@ -10,12 +10,13 @@
             <path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
-        <h1 class="brand-title">创建账号</h1>
+        <span class="eyebrow brand-eyebrow"><span></span>CREATE ACCOUNT</span>
+        <h1 class="brand-title">创建账号<span class="title-period" aria-hidden="true">.</span></h1>
         <p class="brand-sub">开启你的多模态数据工作空间。</p>
       </div>
 
       <!-- Form -->
-      <a-form layout="vertical" :model="form" @finish="handleRegister">
+      <a-form layout="vertical" :model="form" class="stagger-item" style="--i: 5" @finish="handleRegister">
         <a-form-item label="用户名" name="username">
           <a-input
             v-model:value="form.username"
@@ -79,11 +80,12 @@
           :loading="loading"
           class="register-btn"
         >
-          注册
+          <span>创建并进入</span>
+          <ArrowRightOutlined class="register-arrow" />
         </a-button>
       </a-form>
 
-      <div class="form-footer">
+      <div class="form-footer stagger-item" style="--i: 8">
         已有账号？
         <router-link to="/login" class="link">立即登录</router-link>
       </div>
@@ -95,7 +97,7 @@
 import { reactive, ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { message } from 'ant-design-vue'
-import { UserOutlined, LockOutlined, MailOutlined } from '@ant-design/icons-vue'
+import { UserOutlined, LockOutlined, MailOutlined, ArrowRightOutlined } from '@ant-design/icons-vue'
 import { useAuthStore } from '@/stores/auth'
 import AuthLayout from '@/components/layout/AuthLayout.vue'
 
@@ -165,15 +167,6 @@ async function handleRegister() {
 </script>
 
 <style scoped>
-.register-page {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--gray-50, #f8fafc);
-  padding: 24px;
-}
-
 .register-card {
   width: 100%;
   max-width: 400px;
@@ -182,47 +175,48 @@ async function handleRegister() {
 
 .brand {
   text-align: left;
-  margin-bottom: 32px;
+  margin-bottom: 30px;
 }
 
 .brand-icon {
   width: 48px;
   height: 48px;
-  background: #e3ebe5;
-  border-radius: 10px 2px 10px 2px;
-  display: inline-flex;
+  background: var(--mint);
+  border-radius: var(--radius-mark);
+  display: flex;
   align-items: center;
   justify-content: center;
-  color: #345748;
-  margin-bottom: 16px;
+  color: var(--ink);
+  margin-bottom: 22px;
 }
+.brand-eyebrow { display: flex; margin-bottom: 12px; }
 
 .brand-title {
-  font-size: 30px;
+  font-size: 32px;
   font-weight: 700;
-  color: var(--gray-900, #0f172a);
+  color: var(--gray-900);
   margin: 0 0 10px;
-  letter-spacing: -0.3px;
+  letter-spacing: -0.01em;
 }
+.title-period { color: var(--color-primary); margin-left: 2px; }
 
 .brand-sub {
   font-size: 13px;
-  color: var(--gray-400, #94a3b8);
-  letter-spacing: 0;
+  color: var(--gray-500);
   margin: 0;
 }
 
 .password-strength {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-top: 6px;
+  gap: 10px;
+  margin-top: 8px;
 }
 
 .strength-bar {
   flex: 1;
-  height: 4px;
-  background: #e2e8f0;
+  height: 3px;
+  background: var(--gray-200);
   border-radius: 2px;
   overflow: hidden;
 }
@@ -230,45 +224,64 @@ async function handleRegister() {
 .strength-fill {
   height: 100%;
   border-radius: 2px;
-  transition: width 0.3s, background 0.3s;
+  transition: width var(--duration-slow) var(--ease-out), background var(--duration-slow) var(--ease-default);
 }
 
-.strength-fill.weak { background: #ef4444; }
-.strength-fill.fair { background: #f97316; }
-.strength-fill.good { background: #22c55e; }
-.strength-fill.strong { background: #10b981; }
+.strength-fill.weak { background: var(--color-error); }
+.strength-fill.fair { background: var(--color-warning); }
+.strength-fill.good { background: var(--mint-deep); }
+.strength-fill.strong { background: var(--color-success); }
 
 .strength-text {
-  font-size: 11px;
+  font: 500 10px var(--font-mono);
+  letter-spacing: 0.08em;
   min-width: 28px;
 }
 
-.strength-text.weak { color: #ef4444; }
-.strength-text.fair { color: #f97316; }
-.strength-text.good { color: #22c55e; }
-.strength-text.strong { color: #10b981; }
+.strength-text.weak { color: var(--color-error); }
+.strength-text.fair { color: var(--color-warning); }
+.strength-text.good { color: var(--mint-deep); }
+.strength-text.strong { color: var(--color-success); }
 
 .register-btn {
-  height: 44px;
+  height: 48px;
   font-size: 15px;
   font-weight: 600;
-  border-radius: 10px;
+  border-radius: var(--radius-md) !important;
+  margin-top: 6px;
+  gap: 10px !important;
 }
+.register-arrow { font-size: 13px; transition: transform var(--duration-normal) var(--ease-out); }
+.register-btn:hover .register-arrow { transform: translateX(4px); }
 
 .form-footer {
   text-align: center;
-  margin-top: 20px;
+  margin-top: 22px;
   font-size: 13px;
-  color: var(--gray-500, #64748b);
+  color: var(--gray-500);
 }
 
 .form-footer .link {
-  color: var(--color-primary, #0064ff);
+  color: var(--color-primary);
   font-weight: 500;
   text-decoration: none;
+  position: relative;
 }
+.form-footer .link::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -2px;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform var(--duration-normal) var(--ease-out);
+}
+.form-footer .link:hover::after { transform: scaleX(1); transform-origin: left; }
 
-.form-footer .link:hover {
-  text-decoration: underline;
-}
+.register-card :deep(.ant-input-affix-wrapper) { padding: 11px 14px; border-radius: var(--radius-md) !important; }
+.register-card :deep(.ant-input-prefix) { margin-right: 10px; color: var(--gray-400); transition: color var(--transition-default); }
+.register-card :deep(.ant-input-affix-wrapper-focused .ant-input-prefix) { color: var(--color-primary); }
+.register-card :deep(.ant-form-item-label) { padding-bottom: 8px; }
+.register-card :deep(.ant-form-item) { margin-bottom: 18px; }
 </style>
