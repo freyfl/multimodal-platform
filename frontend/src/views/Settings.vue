@@ -1034,7 +1034,7 @@ onMounted(() => {
   width: 32px;
   height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary, #0064ff), var(--color-primary-light, #4080ff));
+  background: var(--ink);
   color: #fff;
   display: flex;
   align-items: center;
@@ -1118,8 +1118,8 @@ onMounted(() => {
   align-items: flex-start;
   gap: 12px;
   padding: 12px 16px;
-  background: var(--color-primary-bg, #e8f0ff);
-  border: 1px solid rgba(0, 100, 255, 0.12);
+  background: var(--mint-soft);
+  border: 1px solid transparent;
   border-radius: var(--radius-md, 10px);
 }
 
@@ -1131,8 +1131,8 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   border-radius: var(--radius, 8px);
-  background: rgba(0, 100, 255, 0.1);
-  color: var(--color-primary, #0064ff);
+  background: var(--mint-soft);
+  color: var(--mint-deep);
   font-size: 16px;
 }
 
@@ -1146,7 +1146,7 @@ onMounted(() => {
 .banner-title {
   font-size: 13px;
   font-weight: 600;
-  color: var(--color-primary-dark, #0052d9);
+  color: var(--gray-900);
 }
 
 .banner-desc {
@@ -1181,8 +1181,8 @@ onMounted(() => {
 }
 
 .config-card-icon--tos {
-  background: rgba(0, 100, 255, 0.08);
-  color: var(--color-primary, #0064ff);
+  background: var(--mint-soft);
+  color: var(--mint-deep);
 }
 
 .config-card-icon--api {

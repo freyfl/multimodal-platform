@@ -520,12 +520,12 @@ const handleReset = () => {
   font-weight: 600;
   border-radius: var(--radius-sm, 6px);
   background: var(--color-primary, #0064ff);
-  box-shadow: 0 1px 3px rgba(0, 100, 255, 0.3);
+  box-shadow: 0 1px 3px rgba(23, 33, 38, 0.2);
 }
 
 .import-btn:hover:not(:disabled) {
   background: var(--color-primary-dark, #0052d9);
-  box-shadow: 0 2px 8px rgba(0, 100, 255, 0.4);
+  box-shadow: 0 2px 8px rgba(23, 33, 38, 0.35);
 }
 
 .reset-btn {

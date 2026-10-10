@@ -165,7 +165,7 @@ const handlePageChange = (page: number) => {
 .media-card:hover {
   border-color: var(--color-primary);
   transform: translateY(-2px);
-  box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.08), var(--shadow-md);
+  box-shadow: 0 0 0 3px var(--color-primary-ring), var(--shadow-md);
 }
 
 .media-card:hover .media-overlay {

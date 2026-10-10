@@ -40,7 +40,7 @@ code, pre, .mono {
 .eyebrow > span:first-child:empty {
   width: 6px;
   height: 6px;
-  background: var(--color-primary);
+  background: var(--color-accent);
   border-radius: 1px;
 }
 
@@ -98,10 +98,10 @@ code, pre, .mono {
 
 .ant-btn-primary:hover,
 .ant-btn-primary:focus-visible {
-  background: var(--color-primary-dark) !important;
-  border-color: var(--color-primary-dark) !important;
+  background: var(--color-primary-light) !important;
+  border-color: var(--color-primary-light) !important;
   color: #ffffff !important;
-  box-shadow: 0 2px 4px rgba(26, 71, 194, 0.2), 0 14px 28px -8px rgba(36, 91, 234, 0.55) !important;
+  box-shadow: 0 2px 4px rgba(23, 33, 38, 0.18), 0 16px 30px -10px rgba(23, 33, 38, 0.5) !important;
 }
 
 /* Preserve disabled and validation semantics alongside the visual theme. */
@@ -138,14 +138,14 @@ code, pre, .mono {
 
 .ant-btn-text,
 .ant-btn-link {
-  color: var(--color-primary) !important;
+  color: var(--color-accent) !important;
   box-shadow: none !important;
 }
 
 .ant-btn-text:hover,
 .ant-btn-link:hover {
-  color: var(--color-primary-dark) !important;
-  background: var(--color-primary-bg) !important;
+  color: var(--color-accent-dark) !important;
+  background: var(--color-accent-light) !important;
 }
 .ant-btn-link:hover { background: transparent !important; }
 
@@ -202,8 +202,8 @@ code, pre, .mono {
   font-size: var(--text-caption) !important;
 }
 .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
-  background: var(--color-primary-bg) !important;
-  color: var(--color-primary-dark) !important;
+  background: var(--mint-soft) !important;
+  color: var(--mint-ink) !important;
   font-weight: 500 !important;
 }
 
@@ -334,8 +334,8 @@ code, pre, .mono {
 }
 
 .ant-tag-blue {
-  background: var(--color-primary-bg) !important;
-  color: var(--color-primary-dark) !important;
+  background: var(--mint-soft) !important;
+  color: var(--mint-ink) !important;
 }
 
 .ant-tag-green {
@@ -390,12 +390,12 @@ code, pre, .mono {
 
 .ant-upload-drag:hover {
   border-color: var(--color-primary) !important;
-  background: var(--color-primary-bg) !important;
+  background: var(--white) !important;
 }
 
 /* -- Progress / 进度条 -- */
 .ant-progress-bg {
-  background: var(--color-primary) !important;
+  background: var(--color-accent) !important;
 }
 .ant-progress-inner { background: var(--gray-100) !important; }
 
@@ -445,7 +445,14 @@ code, pre, .mono {
 .ant-alert {
   border-radius: var(--radius-md) !important;
   font-size: var(--text-caption) !important;
+  border-color: transparent !important;
 }
+.ant-alert-info { background: var(--gray-100) !important; color: var(--gray-700) !important; }
+.ant-alert-info .ant-alert-icon { color: var(--gray-500) !important; }
+.ant-alert-success { background: var(--mint-soft) !important; }
+.ant-alert-success .ant-alert-icon { color: var(--mint-deep) !important; }
+.ant-alert-warning { background: var(--color-warning-light) !important; }
+.ant-alert-error { background: var(--color-error-light) !important; }
 
 /* -- Badge / 徽标 -- */
 .ant-badge-count {
@@ -489,8 +496,8 @@ code, pre, .mono {
 }
 
 .btn-primary:hover {
-  background: var(--color-primary-dark);
-  box-shadow: 0 2px 4px rgba(26, 71, 194, 0.2), 0 14px 28px -8px rgba(36, 91, 234, 0.55);
+  background: var(--color-primary-light);
+  box-shadow: 0 2px 4px rgba(23, 33, 38, 0.18), 0 16px 30px -10px rgba(23, 33, 38, 0.5);
 }
 .btn-primary:active { transform: scale(0.985); }
 
@@ -513,7 +520,7 @@ code, pre, .mono {
 
 /* 渐变文字 */
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--ali-blue-mid) 100%);
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;

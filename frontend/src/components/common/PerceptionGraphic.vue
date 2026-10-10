@@ -40,7 +40,7 @@ withDefaults(defineProps<{ animated?: boolean }>(), { animated: true })
 .perception-graphic { width: 100%; height: auto; color: var(--mint-deep); overflow: visible; }
 .field-grid { opacity: .18; }
 .object-box { opacity: .85; }
-.frame-corners { color: var(--color-primary); }
+.frame-corners { color: var(--color-accent); }
 .field-labels { font: 9px var(--font-body); letter-spacing: 2px; opacity: .75; }
 .field-labels text:nth-of-type(2) { font: 8px var(--font-mono); letter-spacing: 1.5px; }
 .scan-beam { opacity: 0; }

@@ -198,7 +198,7 @@ async function handleRegister() {
   margin: 0 0 10px;
   letter-spacing: -0.01em;
 }
-.title-period { color: var(--color-primary); margin-left: 2px; }
+.title-period { color: var(--color-accent); margin-left: 2px; }
 
 .brand-sub {
   font-size: 13px;
@@ -252,7 +252,7 @@ async function handleRegister() {
   margin-top: 6px;
   gap: 10px !important;
 }
-.register-arrow { font-size: 13px; transition: transform var(--duration-normal) var(--ease-out); }
+.register-arrow { font-size: 13px; color: var(--mint); transition: transform var(--duration-normal) var(--ease-out); }
 .register-btn:hover .register-arrow { transform: translateX(4px); }
 
 .form-footer {

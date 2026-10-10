@@ -702,7 +702,7 @@ onMounted(async () => {
 }
 
 .name-icon {
-  color: var(--color-primary, #0064ff);
+  color: var(--mint-deep);
   font-size: 14px;
   flex-shrink: 0;
 }

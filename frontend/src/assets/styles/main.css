@@ -101,13 +101,13 @@ button:disabled { cursor: not-allowed; }
 
 /* ===== 链接样式 ===== */
 a {
-  color: var(--color-primary);
+  color: var(--color-accent);
   text-decoration: none;
   transition: color var(--transition-default);
 }
 
 a:hover {
-  color: var(--color-primary-dark);
+  color: var(--color-accent-dark);
 }
 
 /* ===== 页面过渡动画 ===== */

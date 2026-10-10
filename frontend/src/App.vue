@@ -26,12 +26,13 @@ const isAuthPage = computed(() => {
 
 const themeConfig = reactive({
   token: {
-    colorPrimary: '#245bea',
-    colorInfo: '#245bea',
+    colorPrimary: '#172126',
+    colorInfo: '#2f6a4e',
     colorSuccess: '#1f9d6b',
     colorWarning: '#d97a12',
     colorError: '#d6453c',
-    colorLink: '#245bea',
+    colorLink: '#2f6a4e',
+    colorLinkHover: '#1f4a37',
     borderRadius: 8,
     borderRadiusLG: 12,
     controlHeight: 38,

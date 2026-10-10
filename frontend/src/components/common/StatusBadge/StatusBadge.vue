@@ -58,21 +58,21 @@ const displayText = computed(() => props.text || statusLabels[props.status] || p
 
 /* Completed */
 .status-completed {
-  background: var(--mint-soft);
-  color: var(--mint-ink);
+  background: var(--gray-100);
+  color: var(--gray-700);
 }
 .status-completed .status-dot {
-  background: var(--mint-deep);
+  background: var(--ink);
 }
 
 /* Running */
 .status-running {
-  background: var(--color-primary-bg);
-  color: var(--color-primary-dark);
+  background: var(--color-accent-light);
+  color: var(--color-accent-dark);
 }
 .status-running .status-dot {
-  background: var(--color-primary);
-  box-shadow: 0 0 0 2px var(--color-primary-ring);
+  background: var(--color-accent);
+  box-shadow: 0 0 0 2px var(--color-accent-glow);
   animation: dot-pulse 1.8s ease-in-out infinite;
 }
 

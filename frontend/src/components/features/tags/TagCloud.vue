@@ -133,7 +133,7 @@ const handleClear = () => {
 }
 
 .header-icon {
-  color: var(--color-primary);
+  color: var(--mint-deep);
 }
 
 .cloud-container {

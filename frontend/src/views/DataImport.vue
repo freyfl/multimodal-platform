@@ -232,13 +232,13 @@ onMounted(() => {
 }
 
 .title-icon {
-  color: var(--color-primary, #0064ff);
+  color: var(--mint-deep);
   font-size: 16px;
 }
 
 .task-count {
-  background: var(--color-primary-bg, #e8f0ff);
-  color: var(--color-primary, #0064ff);
+  background: var(--ink);
+  color: var(--mint);
   padding: 1px 8px;
   border-radius: var(--radius, 8px);
   font-size: var(--text-xs, 11px);
@@ -282,7 +282,7 @@ onMounted(() => {
 
 .tos-input :deep(.ant-input:focus) {
   border-color: var(--color-primary, #0064ff);
-  box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.08);
+  box-shadow: 0 0 0 3px var(--color-primary-ring);
 }
 
 .validate-btn {
@@ -336,7 +336,7 @@ onMounted(() => {
 .option-card.active {
   background: var(--color-primary-bg, #e8f0ff);
   border-color: var(--color-primary, #0064ff);
-  box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.08);
+  box-shadow: 0 0 0 3px var(--color-primary-ring);
 }
 
 .option-icon {
@@ -345,9 +345,9 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary-bg, #e8f0ff);
-  border-radius: var(--radius-md, 10px);
-  color: var(--color-primary, #0064ff);
+  background: var(--mint-soft);
+  border-radius: var(--radius-mark);
+  color: var(--mint-deep);
   font-size: 16px;
 }
 
@@ -467,12 +467,12 @@ onMounted(() => {
   font-weight: 600;
   border-radius: var(--radius-sm, 6px);
   background: var(--color-primary, #0064ff);
-  box-shadow: 0 1px 3px rgba(0, 100, 255, 0.3);
+  box-shadow: 0 1px 3px rgba(23, 33, 38, 0.2);
 }
 
 .import-btn:hover:not(:disabled) {
   background: var(--color-primary-dark, #0052d9);
-  box-shadow: 0 2px 8px rgba(0, 100, 255, 0.4);
+  box-shadow: 0 2px 8px rgba(23, 33, 38, 0.35);
   transform: translateY(-1px);
 }
 
@@ -500,7 +500,7 @@ onMounted(() => {
 }
 
 .refresh-btn:hover {
-  color: var(--color-primary, #0064ff);
+  color: var(--gray-900);
 }
 
 .history-table :deep(.ant-table) {

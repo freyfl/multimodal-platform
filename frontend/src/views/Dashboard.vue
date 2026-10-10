@@ -342,7 +342,7 @@ onMounted(refreshOverview)
   color: var(--gray-500);
   margin: 0;
 }
-.title-period { color: var(--color-primary); margin-left: 2px; }
+.title-period { color: var(--color-accent); margin-left: 2px; }
 .overview-graphic { width: min(40%, 410px); flex-shrink: 0; }
 .overview-actions { display: flex; gap: 28px; align-items: center; margin-top: 26px; font-size: 13px; }
 .overview-link { display: inline-flex; gap: 10px; align-items: center; font-weight: 500; }
@@ -489,13 +489,13 @@ onMounted(refreshOverview)
   align-items: center;
   gap: 4px;
   font-size: var(--text-xs, 12px);
-  color: var(--color-primary, #0064ff);
+  color: var(--color-accent);
   text-decoration: none;
   font-weight: 500;
-  transition: opacity 0.15s;
+  transition: color var(--transition-default);
 }
 .view-all-link:hover {
-  color: var(--color-primary-dark);
+  color: var(--color-accent-dark);
 }
 .link-icon {
   font-size: 10px;

@@ -96,7 +96,7 @@ const handleCancel = () => {
 
 .task-card:hover {
   border-color: var(--color-primary, #0064ff);
-  box-shadow: 0 0 0 3px rgba(0, 100, 255, 0.08), var(--shadow-md);
+  box-shadow: 0 0 0 3px var(--color-primary-ring), var(--shadow-md);
   transform: translateY(-1px);
 }
 

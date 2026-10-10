@@ -1,7 +1,8 @@
 /* ===== 设计系统 CSS 变量 ===== */
-/* Perception workspace · ink / paper / mint / cobalt
-   Rule: cobalt is the only interactive colour; mint is identity (marks, active
-   state on ink, highlights); everything else stays neutral. */
+/* Perception workspace · ink / paper / mint
+   Rule: ink is the only interactive colour (buttons, focus, selection);
+   deep mint is the single accent (links, markers, brand period);
+   everything else stays neutral. */
 :root {
   /* ── 字体 ── */
   --font-body: 'Noto Sans SC', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
@@ -42,27 +43,27 @@
   --mint-deep: #2f6a4e;
   --mint-ink: #1f4a37;
 
-  /* ── 主色 Cobalt（唯一交互色）── */
-  --color-primary: #245bea;
-  --color-primary-light: #4f7ff0;
-  --color-primary-bg: #e9efff;
-  --color-primary-dark: #1a47c2;
-  --color-primary-glow: rgba(36, 91, 234, 0.28);
-  --color-primary-ring: rgba(36, 91, 234, 0.14);
+  /* ── 主色 Ink（唯一交互色）── */
+  --color-primary: #172126;
+  --color-primary-light: #2b3d44;
+  --color-primary-bg: #e9eeeb;
+  --color-primary-dark: #0b1114;
+  --color-primary-glow: rgba(23, 33, 38, 0.28);
+  --color-primary-ring: rgba(23, 33, 38, 0.14);
 
-  /* ── Blue 色阶（兼容原参考） ── */
-  --blue-50: #eef3ff;
-  --blue-100: #dbe5ff;
-  --blue-200: #bfd0fb;
-  --blue-400: #5c86f2;
-  --blue-500: #3d6cee;
-  --blue-600: #245bea;
-  --blue-700: #1a47c2;
-  --blue-800: #163a9c;
-  --blue-900: #142f7a;
-  --ali-blue: #245bea;
-  --ali-blue-light: #e9efff;
-  --ali-blue-mid: #4f7ff0;
+  /* ── 旧蓝色阶（兼容引用，全部映射到墨/薄荷系）── */
+  --blue-50: #eef3f0;
+  --blue-100: #e3f2e7;
+  --blue-200: #c4eccf;
+  --blue-400: #4e8a6b;
+  --blue-500: #2f6a4e;
+  --blue-600: #2b3d44;
+  --blue-700: #22343c;
+  --blue-800: #172126;
+  --blue-900: #0b1114;
+  --ali-blue: #172126;
+  --ali-blue-light: #e9eeeb;
+  --ali-blue-mid: #2b3d44;
 
   /* ── 功能色（降饱和，与墨色协调）── */
   --color-success: #1f9d6b;
@@ -71,14 +72,15 @@
   --color-warning-light: #fdeedb;
   --color-error: #d6453c;
   --color-error-light: #fbe3e1;
-  --color-info: #245bea;
+  --color-info: #2f6a4e;
   --color-purple: #6b5fd6;
   --color-purple-light: #ebe8fb;
 
-  /* ── 强调色（向后兼容） ── */
-  --color-accent: #4f7ff0;
-  --color-accent-light: #245bea;
-  --color-accent-glow: rgba(36, 91, 234, 0.18);
+  /* ── 强调色：深薄荷（链接、标记、品牌句点）── */
+  --color-accent: #2f6a4e;
+  --color-accent-light: #e3f2e7;
+  --color-accent-dark: #1f4a37;
+  --color-accent-glow: rgba(47, 106, 78, 0.18);
 
   /* ── 中性灰度（带一点墨绿倾向，与 ink 同系）── */
   --gray-50: #f4f6f3;
@@ -122,7 +124,7 @@
   --shadow-lg: 0 4px 10px rgba(23, 33, 38, 0.05), 0 28px 56px -14px rgba(23, 33, 38, 0.18);
   --shadow-xl: 0 8px 16px rgba(23, 33, 38, 0.06), 0 40px 80px -20px rgba(23, 33, 38, 0.24);
   --shadow-2xl: var(--shadow-xl);
-  --shadow-primary: 0 1px 2px rgba(26, 71, 194, 0.25), 0 8px 20px -6px rgba(36, 91, 234, 0.45);
+  --shadow-primary: 0 1px 2px rgba(23, 33, 38, 0.2), 0 10px 22px -8px rgba(23, 33, 38, 0.45);
 
   /* 向后兼容旧阴影名 */
   --glass-shadow: var(--shadow);

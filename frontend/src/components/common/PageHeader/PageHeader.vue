@@ -71,7 +71,7 @@ withDefaults(defineProps<Props>(), {
 .title-text {
   color: inherit;
 }
-.title-period { color: var(--color-primary); margin-left: 2px; }
+.title-period { color: var(--color-accent); margin-left: 2px; }
 
 .title-icon {
   display: inline-flex;

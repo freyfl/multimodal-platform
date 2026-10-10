@@ -392,10 +392,10 @@ const showDetail = (item: SearchResultItem) => {
 }
 
 .results-count {
-  background: var(--color-primary-bg);
-  color: var(--color-primary);
-  padding: 2px 10px;
-  border-radius: 8px;
+  background: var(--ink);
+  color: var(--mint);
+  padding: 2px 9px;
+  border-radius: var(--radius-pill);
   font-family: var(--font-mono);
   font-size: 11px;
   font-weight: 600;
@@ -420,6 +420,6 @@ const showDetail = (item: SearchResultItem) => {
 }
 
 .export-btn:hover {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 </style>

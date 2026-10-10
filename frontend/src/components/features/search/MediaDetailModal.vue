@@ -334,18 +334,18 @@ video.preview-media {
   display: inline-flex;
   align-items: center;
   gap: 4px;
-  background: var(--color-primary-bg);
-  border: 1px solid rgba(0, 100, 255, 0.15);
-  color: var(--color-primary);
+  background: var(--white);
+  border: 1px solid var(--gray-200);
+  color: var(--gray-700);
   padding: 3px 10px;
-  border-radius: 6px;
+  border-radius: var(--radius-pill);
   font-size: 12px;
   cursor: pointer;
   transition: all 0.15s ease;
 }
 
 .tag-chip:hover {
-  background: rgba(0, 100, 255, 0.12);
+  background: var(--mint-soft);
   border-color: var(--color-primary);
   transform: translateY(-1px);
 }

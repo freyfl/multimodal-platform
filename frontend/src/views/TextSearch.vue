@@ -227,7 +227,7 @@ const showDetail = (item: SearchResultItem) => {
 }
 
 .export-btn:hover {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .hot-searches {

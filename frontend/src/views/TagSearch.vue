@@ -644,7 +644,7 @@ onBeforeUnmount(() => {
 }
 
 .export-btn:hover {
-  color: var(--color-primary);
+  color: var(--color-accent);
 }
 
 .view-toggle {
@@ -666,8 +666,8 @@ onBeforeUnmount(() => {
 }
 
 .view-icon.active {
-  color: var(--color-primary, #0064ff);
-  background: var(--color-primary-bg, #e8f0ff);
+  color: var(--mint);
+  background: var(--ink);
 }
 
 /* 结果网格覆盖为 4 列 */

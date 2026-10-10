@@ -235,7 +235,7 @@ async function handleChangePassword() {
   box-shadow: var(--shadow-primary);
 }
 .btn-primary .anticon { transition: transform var(--duration-normal) var(--ease-spring); }
-.btn-primary:hover .anticon { transform: rotate(90deg); }
+.btn-primary:hover .anticon { transform: rotate(90deg); color: var(--mint); }
 
 .user-trigger {
   display: flex;
