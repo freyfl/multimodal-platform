@@ -208,6 +208,26 @@ PYTHON_BIN=python3.11 bash deploy/pack.sh release
 
 实际包验收需在新构建完成后检查 `tar -tzf` 清单并在隔离目录解压验证文件完整性、字体与前后端合同；本轮不执行实际构建/打包。
 
+## 原地升级（代码与前端产物）
+
+`deploy/update.sh` 用于把 `pack.sh release` 产出的发布包原地覆盖到**已安装并运行过**的部署目录，仅适用于不涉及 schema 迁移、不改动基础设施的版本更新（如前端改版、后端代码修复）。涉及数据库迁移时按上方“本次标注增量升级”执行，不得只跑本脚本。
+
+```bash
+# 1. 把发布包复制到服务器（在本地执行）
+scp multimodal-platform-YYYYMMDD-release.tar.gz root@<ECS>:/root/
+
+# 2. 在服务器的部署目录执行；首次使用时先从发布包中取出脚本本身
+cd /path/to/multimodal-platform
+tar -xzf /root/multimodal-platform-YYYYMMDD-release.tar.gz --strip-components=1 \
+    multimodal-platform/deploy/update.sh
+PORT=3000 APP_ENV_FILE="$(pwd)/backend/.env" \
+    bash deploy/update.sh /root/multimodal-platform-YYYYMMDD-release.tar.gz
+```
+
+脚本顺序：校验发布包（单一顶层目录、含 `frontend/dist/index.html` 与 `backend/requirements.txt`、不含 `backend/.env`）→ `stop.sh` 停止应用（容器继续运行）→ 把当前 `backend/ frontend/ deploy/ docs/ README.md` 打成 `releases/rollback-<时间戳>.tar.gz` → 删除旧 `frontend/dist` 并解压新包覆盖 → 用现有 `backend/venv` 同步 `requirements.txt` → `start.sh --daemon` 并做 HTTP 探活。
+
+边界：不读取、不生成、不覆盖 `backend/.env`；不触碰 `backend/data`、`logs`、命名卷、标注存储；不重建前端（发布包已含构建结果）；`PORT` 不传则沿用 `start.sh` 默认 3000。回退：`bash deploy/stop.sh`，解压对应 `releases/rollback-*.tar.gz` 到项目根目录，再 `start.sh --daemon`。回退包不含 venv、`node_modules`、数据和配置。
+
 ## 故障定位
 
 | 现象 | 检查方向 |
